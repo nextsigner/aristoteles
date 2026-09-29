@@ -1,1 +1,1 @@
-Se cream main.qml
+Se eliminan numeros de versiones
