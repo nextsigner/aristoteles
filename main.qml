@@ -90,7 +90,7 @@
 
 import QtQuick
 import QtQuick.Window
-//import QtMultimedia
+import QtMultimedia
 
 Window {
     id: mainWindow
