@@ -1,1 +1,1 @@
-Se eliminan numeros de versiones
+Se optimiza para Qt 6.11.0
