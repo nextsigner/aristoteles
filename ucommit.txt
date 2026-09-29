@@ -1,1 +1,1 @@
-Se optimiza para Qt 6.11.0
+Se optimiza para Qt 6.11.0 2

@@ -90,7 +90,7 @@
 
 import QtQuick
 import QtQuick.Window
-import QtMultimedia
+//import QtMultimedia
 
 Window {
     id: mainWindow
@@ -101,7 +101,7 @@ Window {
     color: "#0a0a0a" // Fondo oscuro de alto contraste
 
     // En Qt 6, el elemento Audio se divide en MediaPlayer + AudioOutput
-    MediaPlayer {
+    /*MediaPlayer {
         id: mediaPlayer
         source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
         audioOutput: AudioOutput {
@@ -167,5 +167,5 @@ Window {
     Shortcut {
         sequence: "Esc"
         onActivated: Qt.quit()
-    }
+    }*/
 }
