@@ -1,1 +1,1 @@
-Se optimiza para Qt 6.11.0 3
+i7: Se prueba 2

@@ -90,7 +90,6 @@
 
 import QtQuick
 import QtQuick.Window
-import QtMultimedia
 
 Window {
     id: mainWindow
@@ -98,74 +97,76 @@ Window {
     height: 800
     visible: true
     title: "Reproductor Accesible"
-    color: "#0a0a0a" // Fondo oscuro de alto contraste
+    color: "#0a0a0a"
 
-    // En Qt 6, el elemento Audio se divide en MediaPlayer + AudioOutput
-    /*MediaPlayer {
-        id: mediaPlayer
-        source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
-        audioOutput: AudioOutput {
-            id: audioOutput
-            volume: 1.0
-        }
-        // autoLoad y autoPlay se manejan al completarse el componente o mediante propiedades nativas
-    }
-
-    // Área táctil que abarca toda la pantalla para facilitar la interacción sin mirar
-    MouseArea {
-        id: touchArea
+    // Usamos un Loader para retrasar la carga del motor multimedia hasta que la UI sea visible
+    Loader {
+        id: mediaLoader
         anchors.fill: parent
-
-        property real startX: 0
-
-        onPressed: (mouse) => {
-            startX = mouse.x;
-        }
-
-        onReleased: (mouse) => {
-            var deltaX = mouse.x - startX;
-            var screenWidth = mainWindow.width;
-            var ratio = Math.abs(deltaX) / screenWidth;
-
-            // Si el arrastre es mínimo (menos del 5% de la pantalla), se toma como un toque (Play/Pause)
-            if (ratio < 0.05) {
-                if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
-                    mediaPlayer.pause();
-                } else {
-                    mediaPlayer.play();
-                }
-                return;
-            }
-
-            // Rango solicitado: 10 segundos (10000 ms) a 5 minutos (300000 ms)
-            var minJump = 10 * 1000;         // 10 segundos
-            var maxJump = 5 * 60 * 1000;     // 5 minutos (300 segundos)
-
-            // Mapear el porcentaje de arrastre (ratio) al rango de tiempo
-            var jumpTime = minJump + ratio * (maxJump - minJump);
-            if (jumpTime > maxJump) jumpTime = maxJump;
-
-            var newPosition = mediaPlayer.position;
-
-            if (deltaX > 0) {
-                // Deslizamiento hacia la DERECHA -> Avanzar
-                newPosition += jumpTime;
-                mediaPlayer.position = Math.min(newPosition, mediaPlayer.duration);
-            } else {
-                // Deslizamiento hacia la IZQUIERDA -> Retroceder
-                newPosition -= jumpTime;
-                mediaPlayer.position = Math.max(newPosition, 0);
-            }
-        }
+        sourceComponent: multimediaComponent
+        asynchronous: true
     }
 
-    // Reproducir automáticamente al iniciar la app
-    Component.onCompleted: {
-        mediaPlayer.play();
+    Component {
+        id: multimediaComponent
+        Item {
+            anchors.fill: parent
+
+            // El motor multimedia vive aquí dentro de forma aislada
+            MediaPlayer {
+                id: mediaPlayer
+                source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
+                audioOutput: AudioOutput {
+                    id: audioOutput
+                    volume: 1.0
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                property real startX: 0
+
+                onPressed: (mouse) => {
+                    startX = mouse.x;
+                }
+
+                onReleased: (mouse) => {
+                    var deltaX = mouse.x - startX;
+                    var ratio = Math.abs(deltaX) / width;
+
+                    if (ratio < 0.05) {
+                        if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
+                            mediaPlayer.pause();
+                        } else {
+                            mediaPlayer.play();
+                        }
+                        return;
+                    }
+
+                    var minJump = 10 * 1000;
+                    var maxJump = 5 * 60 * 1000;
+                    var jumpTime = minJump + ratio * (maxJump - minJump);
+                    if (jumpTime > maxJump) jumpTime = maxJump;
+
+                    var newPosition = mediaPlayer.position;
+                    if (deltaX > 0) {
+                        newPosition += jumpTime;
+                        mediaPlayer.position = Math.min(newPosition, mediaPlayer.duration);
+                    } else {
+                        newPosition -= jumpTime;
+                        mediaPlayer.position = Math.max(newPosition, 0);
+                    }
+                }
+            }
+
+            Component.onCompleted: {
+                mediaPlayer.play();
+            }
+        }
     }
 
     Shortcut {
         sequence: "Esc"
         onActivated: Qt.quit()
-    }*/
+    }
 }
