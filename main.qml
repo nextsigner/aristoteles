@@ -10,12 +10,20 @@ Window {
     height: Qt.platform.os==='android'?480:1080
     visible: true
     title: "Aristoteles"
-    color: '#ff8833'
+    color: 'black'
     property int fs: width*0.035
     Item {
         id: xApp
         anchors.fill: parent
 
+        Text{
+            text: "V1\n"+mediaPlayer.position+'\n'
+            width: app.width
+            color: 'white'
+            font.pixelSize: app.fs
+            wrapMode: Text.WordWrap
+            anchors.centerIn: parent
+        }
         MediaPlayer {
             id: mediaPlayer
             source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
