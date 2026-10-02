@@ -156,15 +156,37 @@ Window {
             id: mediaPlayer
             source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
 
-            // Removido autoPlay: true
+            // Bandera para saber si ya restauramos la posición inicial guardada
             property bool positionRestored: false
+
+            // Copia temporal de la posición a restaurar para evitar que se pise con el valor 0 de arranque
+            property real savedPosToRestore: apps.lastPosition
 
             audioOutput: AudioOutput {
                 id: audioOutput
                 volume: apps.volumeValue / 100.0
             }
 
-            // Guarda la posición solo si el archivo ya fue restaurado
+            // Intenta restaurar la posición en cuanto el reproductor esté listo y sea seekable
+            function tryRestorePosition() {
+                if (!positionRestored && seekable && duration > 0) {
+                    positionRestored = true;
+                    if (apps.lastSource === source.toString() && savedPosToRestore > 0) {
+                        var targetPos = Math.min(savedPosToRestore, duration);
+                        mediaPlayer.position = targetPos;
+                    }
+                    mediaPlayer.play();
+                }
+            }
+
+            onSeekableChanged: tryRestorePosition()
+            onMediaStatusChanged: {
+                if (mediaStatus === MediaPlayer.LoadedMedia || mediaStatus === MediaPlayer.BufferedMedia) {
+                    tryRestorePosition();
+                }
+            }
+
+            // Guarda la posición en Settings ÚNICAMENTE después de haber restaurado la previa
             onPositionChanged: {
                 if (positionRestored && position > 0) {
                     apps.lastPosition = position;
@@ -173,20 +195,6 @@ Window {
 
             onSourceChanged: {
                 apps.lastSource = source.toString();
-            }
-
-            onMediaStatusChanged: {
-                if (mediaStatus === MediaPlayer.LoadedMedia && !positionRestored) {
-                    positionRestored = true;
-
-                    // Si coincide la URL y hay una posición guardada previa
-                    if (apps.lastSource === source.toString() && apps.lastPosition > 0) {
-                        mediaPlayer.position = Math.min(apps.lastPosition, mediaPlayer.duration);
-                    }
-
-                    // Iniciamos la reproducción manualmente tras aplicar la posición
-                    mediaPlayer.play();
-                }
             }
         }
 
