@@ -49,8 +49,8 @@ Window {
             // --- Barra de progreso ---
             Rectangle {
                 id: progressContainer
-                width: parent.width
-                height: 100
+                width: app.width
+                height: app.fs*4
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 color: {
@@ -72,7 +72,7 @@ Window {
                 Text {
                     text: "Reproducido: %" + progressContainer.porcentaje
                     color: "black"
-                    font.pixelSize: 50
+                    font.pixelSize: parent.height*0.8
                     anchors.centerIn: parent
                 }
 
@@ -110,17 +110,18 @@ Window {
         // --- Control de volumen vertical (Lateral izquierdo) ---
         Rectangle {
             id: volumeTrack
-            width: 50
+            width: app.fs*3
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             color: "gray"
             z: 10
+            anchors.right: parent.right
 
             Rectangle {
                 id: volumeHandle
                 width: parent.width
-                height: 50
+                height: width
                 color: "white"
 
                 y: (1.0 - audioOutput.volume) * (volumeTrack.height - height)
@@ -128,7 +129,7 @@ Window {
                 Text {
                     text: Math.round(audioOutput.volume * 100)
                     color: "black"
-                    font.pixelSize: 18
+                    font.pixelSize: parent.width*0.5
                     font.bold: true
                     anchors.centerIn: parent
                 }
@@ -164,12 +165,9 @@ Window {
             z: 5
 
             model: ListModel {
-                //ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
-                //ListElement { titulo: "Física"; descripcion: "Teoría Hilemórfica"; posicion: 655000 }  // 30 seg
-                //ListElement { descripcion: "Capítulo 2: Conclusión"; posicion: 805000 }     // 60 seg
                 ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
                 ListElement { titulo: "Teoría Hilemórfica"; descripcion: "Forma y materia, sustancia primera y sustancia segunda."; posicion: 701000 }
-                ListElement { titulo: "Teleología"; descripcion: "Cambio, potencia y acto."; posicion: 1473000 }
+                ListElement { titulo: "Teleología y Cambio"; descripcion: "Potencia y acto."; posicion: 1471000 }
                 ListElement { titulo: "Teoría de las 4 causas"; descripcion: "Escuchando..."; posicion: 1973000 }
             }
 
@@ -186,6 +184,9 @@ Window {
 
                     Text {
                         text: titulo
+                        width: parent.parent.width-app.fs
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
                         color: "white"
                         font.pixelSize: app.fs*1.5
                         font.bold: true
@@ -193,8 +194,11 @@ Window {
                     }
                     Text {
                         text: descripcion
+                        width: parent.parent.width-app.fs
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
                         color: "white"
-                        font.pixelSize: 24
+                        font.pixelSize: app.fs
                         font.bold: true
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -229,7 +233,10 @@ Window {
 
         MouseArea {
             id: touchArea
-            anchors.fill: parent
+            //anchors.fill: parent
+            width: app.width-volumeTrack.width
+            height: parent.height
+            anchors.right: parent.right
 
             property real startX: 0
 
