@@ -14,8 +14,8 @@ Window {
     property int fs: width*0.035
 
     // Requerido por QtCore.Settings para identificar el archivo de configuración
-    organizationName: "Unik"
-    organizationDomain: "unik.com"
+    //organizationName: "Unik"
+    //organizationDomain: "unik.com"
 
     // Componente Settings para guardar y restaurar datos
     Settings {
