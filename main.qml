@@ -13,39 +13,24 @@ Window {
     color: 'black'
     property int fs: width*0.035
 
+    organizationName: "Unik"
+    organizationDomain: "unik.com"
+
     Settings {
         id: apps
         property int volumeValue: 100
-        property string lastSource: ""
-        property real lastPosition: 0
-    }
-
-    // Variable temporal para congelar el valor guardado en disco
-    property real savedPositionToRestore: 0
-    property string targetSource: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
-
-    Component.onCompleted: {
-        if (apps.lastSource === targetSource) {
-            savedPositionToRestore = apps.lastPosition
-        }
-    }
-
-    Component.onDestruction: {
-        if (mediaPlayer.position > 0) {
-            apps.lastSource = mediaPlayer.source.toString()
-            apps.lastPosition = mediaPlayer.position
-        }
     }
 
     Item {
         id: xApp
         anchors.fill: parent
 
-        Column{
+        Column {
             spacing: app.fs*2
             anchors.centerIn: parent
-            Text{
-                text: "V1\n"+mediaPlayer.position+'\n'
+
+            Text {
+                text: "V1\n" + mediaPlayer.position + '\n'
                 width: app.width
                 color: 'white'
                 font.pixelSize: app.fs
@@ -53,8 +38,8 @@ Window {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-            Text{
-                text: "URL: "+mediaPlayer.source
+            Text {
+                text: "URL: " + mediaPlayer.source
                 width: app.width
                 color: 'white'
                 font.pixelSize: app.fs
@@ -100,11 +85,11 @@ Window {
                     x: (mediaPlayer.duration > 0)
                        ? (mediaPlayer.position / mediaPlayer.duration) * (progressContainer.width - width)
                        : 0
-                    Rectangle{
+                    Rectangle {
                         width: app.fs*0.1
                         height: parent.height
                         anchors.centerIn: parent
-                        SequentialAnimation on color{
+                        SequentialAnimation on color {
                             running: true
                             loops: Animation.Infinite
 
@@ -124,7 +109,7 @@ Window {
             }
         }
 
-        // --- Control de volumen ---
+        // --- Control de volumen vertical (Lateral izquierdo) ---
         Rectangle {
             id: volumeTrack
             width: 50
@@ -169,39 +154,68 @@ Window {
             }
         }
 
-        MediaPlayer {
-            id: mediaPlayer
-            source: app.targetSource
-            property bool restored: false
+        // --- ListView Horizontal Inferior ---
+        ListView {
+            id: markersList
+            width: parent.width
+            height: 300
+            anchors.bottom: parent.bottom
+            orientation: ListView.Horizontal
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.StrictlyEnforceRange
+            z: 5
 
-            audioOutput: AudioOutput {
-                id: audioOutput
-                volume: apps.volumeValue / 100.0
+            model: ListModel {
+                ListElement { descripcion: "Inicio / Introducción"; posicion: 0 }
+                ListElement { descripcion: "Capítulo 1: Planteamiento"; posicion: 30000 }  // 30 seg
+                ListElement { descripcion: "Capítulo 2: Conclusión"; posicion: 60000 }     // 60 seg
             }
 
-            function checkAndRestore() {
-                if (!restored && duration > 0) {
-                    restored = true
-                    if (app.savedPositionToRestore > 0) {
-                        var target = Math.min(app.savedPositionToRestore, duration)
-                        mediaPlayer.position = target
+            delegate: Rectangle {
+                width: markersList.width
+                height: markersList.height
+                color: "#222222"
+                border.color: "white"
+                border.width: 1
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 10
+
+                    Text {
+                        text: descripcion
+                        color: "white"
+                        font.pixelSize: 24
+                        font.bold: true
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+
+                    Text {
+                        text: "Posición: " + (posicion / 1000) + " seg (" + posicion + " ms)"
+                        color: "#AAAAAA"
+                        font.pixelSize: 18
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
             }
 
-            onDurationChanged: {
-                checkAndRestore()
-            }
-
-            // Un solo bloque con todos los manejadores de PlaybackState
-            onPlaybackStateChanged: {
-                if (playbackState === MediaPlayer.PlayingState) {
-                    checkAndRestore()
-                } else if (playbackState === MediaPlayer.PausedState && position > 0) {
-                    apps.lastSource = mediaPlayer.source.toString()
-                    apps.lastPosition = mediaPlayer.position
+            // Al deslizar y cambiar el elemento seleccionado, actualiza la posición del audio
+            onCurrentIndexChanged: {
+                if (currentItem && mediaPlayer.duration > 0) {
+                    var targetPos = model.get(currentIndex).posicion;
+                    mediaPlayer.position = Math.min(targetPos, mediaPlayer.duration);
                 }
             }
+        }
+
+        MediaPlayer {
+            id: mediaPlayer
+            source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
+            audioOutput: AudioOutput {
+                id: audioOutput
+                volume: apps.volumeValue / 100.0
+            }
+            autoPlay: true
         }
 
         MouseArea {
@@ -238,16 +252,16 @@ Window {
 
                             if (deltaX > 0) {
                                 newPosition += jumpTime;
-                                mediaPlayer.position = Math.min(newPosition, mediaPlayer.duration);
+                                mediaPlayer.position = Math.min(newPosition, mediaPlayer.duration)
                             } else {
                                 newPosition -= jumpTime;
-                                mediaPlayer.position = Math.max(newPosition, 0);
+                                mediaPlayer.position = Math.max(newPosition, 0)
                             }
                         }
         }
     }
 
-    Shortcut{
+    Shortcut {
         sequence: 'Esc'
         onActivated: Qt.quit()
     }
