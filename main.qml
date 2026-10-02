@@ -165,9 +165,12 @@ Window {
 
             model: ListModel {
                 ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
+                ListElement { titulo: "Física"; descripcion: "Teoría Hilemórfica"; posicion: 655000 }  // 30 seg
+                ListElement { descripcion: "Capítulo 2: Conclusión"; posicion: 805000 }     // 60 seg
+                /*ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
                 ListElement { titulo: "Teoría Hilemórfica"; descripcion: "Forma y materia, sustancia primera y sustancia segunda."; posicion: 701000 }  -
                 ListElement { titulo: "Teleología"; descripcion: "Cambio, potencia y acto."; posicion: 1473000 }
-                ListElement { titulo: "Teoría de las 4 causas"; descripcion: "Escuchando..."; posicion: 1973000 }
+                ListElement { titulo: "Teoría de las 4 causas"; descripcion: "Escuchando..."; posicion: 1973000 }*/
             }
 
             delegate: Rectangle {
@@ -182,20 +185,9 @@ Window {
                     spacing: 10
 
                     Text {
-                        text: titulo
-                        width: parent.parent.width
-                        wrapMode: Text.WordWrap
-                        color: "white"
-                        font.pixelSize: app.fs
-                        font.bold: true
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                    Text {
                         text: descripcion
-                        width: parent.parent.width
-                        wrapMode: Text.WordWrap
                         color: "white"
-                        font.pixelSize: app.fs*0.5
+                        font.pixelSize: 24
                         font.bold: true
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
