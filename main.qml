@@ -20,6 +20,23 @@ Window {
         property real lastPosition: 0
     }
 
+    // Variable temporal para congelar el valor guardado en disco
+    property real savedPositionToRestore: 0
+    property string targetSource: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
+
+    Component.onCompleted: {
+        if (apps.lastSource === targetSource) {
+            savedPositionToRestore = apps.lastPosition
+        }
+    }
+
+    Component.onDestruction: {
+        if (mediaPlayer.position > 0) {
+            apps.lastSource = mediaPlayer.source.toString()
+            apps.lastPosition = mediaPlayer.position
+        }
+    }
+
     Item {
         id: xApp
         anchors.fill: parent
@@ -154,47 +171,36 @@ Window {
 
         MediaPlayer {
             id: mediaPlayer
-            source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
-
-            // Bandera para saber si ya restauramos la posición inicial guardada
-            property bool positionRestored: false
-
-            // Copia temporal de la posición a restaurar para evitar que se pise con el valor 0 de arranque
-            property real savedPosToRestore: apps.lastPosition
+            source: app.targetSource
+            property bool restored: false
 
             audioOutput: AudioOutput {
                 id: audioOutput
                 volume: apps.volumeValue / 100.0
             }
 
-            // Intenta restaurar la posición en cuanto el reproductor esté listo y sea seekable
-            function tryRestorePosition() {
-                if (!positionRestored && seekable && duration > 0) {
-                    positionRestored = true;
-                    if (apps.lastSource === source.toString() && savedPosToRestore > 0) {
-                        var targetPos = Math.min(savedPosToRestore, duration);
-                        mediaPlayer.position = targetPos;
+            function checkAndRestore() {
+                if (!restored && duration > 0) {
+                    restored = true
+                    if (app.savedPositionToRestore > 0) {
+                        var target = Math.min(app.savedPositionToRestore, duration)
+                        mediaPlayer.position = target
                     }
-                    mediaPlayer.play();
                 }
             }
 
-            onSeekableChanged: tryRestorePosition()
-            onMediaStatusChanged: {
-                if (mediaStatus === MediaPlayer.LoadedMedia || mediaStatus === MediaPlayer.BufferedMedia) {
-                    tryRestorePosition();
-                }
+            onDurationChanged: {
+                checkAndRestore()
             }
 
-            // Guarda la posición en Settings ÚNICAMENTE después de haber restaurado la previa
-            onPositionChanged: {
-                if (positionRestored && position > 0) {
-                    apps.lastPosition = position;
+            // Un solo bloque con todos los manejadores de PlaybackState
+            onPlaybackStateChanged: {
+                if (playbackState === MediaPlayer.PlayingState) {
+                    checkAndRestore()
+                } else if (playbackState === MediaPlayer.PausedState && position > 0) {
+                    apps.lastSource = mediaPlayer.source.toString()
+                    apps.lastPosition = mediaPlayer.position
                 }
-            }
-
-            onSourceChanged: {
-                apps.lastSource = source.toString();
             }
         }
 
