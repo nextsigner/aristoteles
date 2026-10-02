@@ -165,7 +165,7 @@ Window {
 
             model: ListModel {
                 ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
-                ListElement { titulo: "Teoría Hilemórfica"; descripcion: "Forma y materia, sustancia primera y sustancia segunda."; posicion: 701000 }  // 30 seg
+                ListElement { titulo: "Teoría Hilemórfica"; descripcion: "Forma y materia, sustancia primera y sustancia segunda."; posicion: 701000 }  -
                 ListElement { titulo: "Teleología"; descripcion: "Cambio, potencia y acto."; posicion: 1473000 }
                 ListElement { titulo: "Teoría de las 4 causas"; descripcion: "Escuchando..."; posicion: 1973000 }
             }
@@ -186,7 +186,7 @@ Window {
                         width: parent.parent.width
                         wrapMode: Text.WordWrap
                         color: "white"
-                        font.pixelSize: app.fs*1.5
+                        font.pixelSize: app.fs
                         font.bold: true
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -195,7 +195,8 @@ Window {
                         width: parent.parent.width
                         wrapMode: Text.WordWrap
                         color: "white"
-                        font.pixelSize: app.fs*0.5                        font.bold: true
+                        font.pixelSize: app.fs*0.5
+                        font.bold: true
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
 
