@@ -122,7 +122,6 @@ Window {
                 width: parent.width
                 height: 50
                 color: "white"
-                anchors.right: parent.right
 
                 y: (1.0 - audioOutput.volume) * (volumeTrack.height - height)
 
@@ -196,7 +195,7 @@ Window {
                         width: parent.parent.width
                         wrapMode: Text.WordWrap
                         color: "white"
-                        font.pixelSize: app.fs                        font.bold: true
+                        font.pixelSize: app.fs*0.5                        font.bold: true
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
 
