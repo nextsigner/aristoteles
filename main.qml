@@ -27,9 +27,11 @@ Window {
 
         Column {
             spacing: app.fs*2
-            anchors.centerIn: parent
+            //anchors.centerIn: parent
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset: 0-progressContainer.height-markersList.height
             Text {
-                text: "" + getMsToString(mediaPlayer.position) + '\n'
+                text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.position)
                 width: progressContainer.width
                 color: 'white'
                 font.pixelSize: app.fs*2
@@ -55,8 +57,58 @@ Window {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+        }
 
-            // --- Barra de progreso ---
+        // --- Control de volumen vertical (Lateral izquierdo) ---
+        Rectangle {
+            id: volumeTrack
+            width: app.fs*3
+            border.width: 2
+            border.color: 'white'
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            color: "gray"
+            z: 10
+            anchors.right: parent.right
+
+            Rectangle {
+                id: volumeHandle
+                width: parent.width
+                height: width
+                color: "white"
+
+                y: (1.0 - audioOutput.volume) * (volumeTrack.height - height)
+
+                Text {
+                    text: Math.round(audioOutput.volume * 100)
+                    color: "black"
+                    font.pixelSize: parent.width*0.5
+                    font.bold: true
+                    anchors.centerIn: parent
+                }
+            }
+
+            MouseArea {
+                id: volumeMouseArea
+                anchors.fill: parent
+
+                function updateVolume(mouseY) {
+                    var clampedY = Math.max(0, Math.min(mouseY, volumeTrack.height));
+                    var newVolume = 1.0 - (clampedY / volumeTrack.height);
+                    var finalVol = Math.max(0.0, Math.min(1.0, newVolume));
+
+                    audioOutput.volume = finalVol;
+                    apps.volumeValue = Math.round(finalVol * 100);
+                }
+
+                onPressed: (mouse) => updateVolume(mouse.y)
+                onPositionChanged: (mouse) => updateVolume(mouse.y)
+            }
+        }
+
+        Column{
+            spacing: app.fs
+            anchors.bottom: parent.bottom
             Rectangle {
                 id: progressContainer
                 width: xApp.width-volumeTrack.width
@@ -115,139 +167,84 @@ Window {
                     }
                 }
             }
-        }
 
-        // --- Control de volumen vertical (Lateral izquierdo) ---
-        Rectangle {
-            id: volumeTrack
-            width: app.fs*3
-            border.width: 2
-            border.color: 'white'
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            color: "gray"
-            z: 10
-            anchors.right: parent.right
+            // --- ListView Horizontal Inferior ---
+            ListView {
+                id: markersList
+                width: parent.width-volumeTrack.width
+                height: app.height*0.3
+                orientation: ListView.Horizontal
+                snapMode: ListView.SnapOneItem
+                highlightRangeMode: ListView.StrictlyEnforceRange
+                z: 5
 
-            Rectangle {
-                id: volumeHandle
-                width: parent.width
-                height: width
-                color: "white"
-
-                y: (1.0 - audioOutput.volume) * (volumeTrack.height - height)
-
-                Text {
-                    text: Math.round(audioOutput.volume * 100)
-                    color: "black"
-                    font.pixelSize: parent.width*0.5
-                    font.bold: true
-                    anchors.centerIn: parent
-                }
-            }
-
-            MouseArea {
-                id: volumeMouseArea
-                anchors.fill: parent
-
-                function updateVolume(mouseY) {
-                    var clampedY = Math.max(0, Math.min(mouseY, volumeTrack.height));
-                    var newVolume = 1.0 - (clampedY / volumeTrack.height);
-                    var finalVol = Math.max(0.0, Math.min(1.0, newVolume));
-
-                    audioOutput.volume = finalVol;
-                    apps.volumeValue = Math.round(finalVol * 100);
-                }
-
-                onPressed: (mouse) => updateVolume(mouse.y)
-                onPositionChanged: (mouse) => updateVolume(mouse.y)
-            }
-        }
-
-        // --- ListView Horizontal Inferior ---
-        ListView {
-            id: markersList
-            width: parent.width-volumeTrack.width
-            height: app.height*0.3
-            anchors.bottom: parent.bottom
-            orientation: ListView.Horizontal
-            snapMode: ListView.SnapOneItem
-            highlightRangeMode: ListView.StrictlyEnforceRange
-            z: 5
-
-            model: lm/*ListModel {
-                ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
-                ListElement { titulo: "Teoría Hilemórfica"; descripcion: "Forma y materia, sustancia primera y sustancia segunda."; posicion: 701000 }
-                ListElement { titulo: "Teleología y Cambio"; descripcion: "Potencia y acto."; posicion: 1471000 }
-                ListElement { titulo: "Teoría de las 4 causas"; descripcion: "Escuchando..."; posicion: 2081600 }
-            }*/
-
-            delegate: Rectangle {
-                width: markersList.width
-                height: markersList.height
-                color: "#222222"
-                border.color: "white"
-                border.width: 1
-                MouseArea{
-                    anchors.fill: parent
-                    onDoubleClicked: mediaPlayer.position = posicion
-                }
-
-                Column {
-                    anchors.centerIn: parent
-                    spacing: 10
-
-                    Text {
-                        text: titulo
-                        width: parent.parent.width-app.fs
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        color: "white"
-                        font.pixelSize: app.fs*1.5
-                        font.bold: true
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                    Text {
-                        text: descripcion
-                        width: parent.parent.width-app.fs
-                        wrapMode: Text.WordWrap
-                        horizontalAlignment: Text.AlignHCenter
-                        color: "white"
-                        font.pixelSize: app.fs
-                        font.bold: true
-                        anchors.horizontalCenter: parent.horizontalCenter
+                model: lm
+                delegate: Rectangle {
+                    width: markersList.width
+                    height: markersList.height
+                    color: "#222222"
+                    border.color: "white"
+                    border.width: 1
+                    MouseArea{
+                        anchors.fill: parent
+                        onDoubleClicked: mediaPlayer.position = posicion
                     }
 
-                    Text {
-                        //text: "Posición: " + (posicion / 1000) + " seg (" + posicion + " ms)"
-                        text: "Posición: " + getMsToString((posicion)) + " de (" + getMsToString(posicion) + ")"
-                        color: "#AAAAAA"
-                        font.pixelSize: 18
-                        anchors.horizontalCenter: parent.horizontalCenter
+                    Column {
+                        anchors.centerIn: parent
+                        spacing: 10
+
+                        Text {
+                            text: titulo
+                            width: parent.parent.width-app.fs
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            color: "white"
+                            font.pixelSize: app.fs*1.5
+                            font.bold: true
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        Text {
+                            text: descripcion
+                            width: parent.parent.width-app.fs
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            color: "white"
+                            font.pixelSize: app.fs
+                            font.bold: true
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+
+                        Text {
+                            //text: "Posición: " + (posicion / 1000) + " seg (" + posicion + " ms)"
+                            text: "Posición: " + getMsToString((posicion)) + " de " + getMsToString(mediaPlayer.position)
+                            color: "#AAAAAA"
+                            font.pixelSize: 18
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
                     }
                 }
-            }
 
-            // Al deslizar y cambiar el elemento seleccionado, actualiza la posición del audio
-            onCurrentIndexChanged: {
-                if (currentItem && mediaPlayer.duration > 0) {
-                    var targetPos = model.get(currentIndex).posicion;
-                    mediaPlayer.position = Math.min(targetPos, mediaPlayer.duration);
-                }
-            }
-            ListModel{
-                id: lm
-                function addItem(t, d, ms){
-                 return{
-                        titulo: t,
-                        descripcion: d,
-                        posicion: ms
+                // Al deslizar y cambiar el elemento seleccionado, actualiza la posición del audio
+                onCurrentIndexChanged: {
+                    if (currentItem && mediaPlayer.duration > 0) {
+                        var targetPos = model.get(currentIndex).posicion;
+                        mediaPlayer.position = Math.min(targetPos, mediaPlayer.duration);
                     }
+                }
+                ListModel{
+                    id: lm
+                    function addItem(t, d, ms){
+                        return{
+                            titulo: t,
+                            descripcion: d,
+                            posicion: ms
+                        }
 
+                    }
                 }
             }
         }
-
         MediaPlayer {
             id: mediaPlayer
             source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
