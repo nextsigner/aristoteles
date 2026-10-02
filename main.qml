@@ -43,10 +43,8 @@ Window {
                 id: progressContainer
                 width: parent.width
                 height: 100
-                //anchors.centerIn: parent
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                // Asignación dinámica del color según el estado del MediaPlayer
                 color: {
                     if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
                         return "red";       // Rojo si está reproduciendo
@@ -59,12 +57,10 @@ Window {
                     }
                 }
 
-                // Porcentaje calculado de 0 a 100
                 property int porcentaje: (mediaPlayer.duration > 0)
                                          ? Math.floor((mediaPlayer.position / mediaPlayer.duration) * 100)
                                          : 0
 
-                // Texto con el progreso
                 Text {
                     text: "Reproducido: %" + progressContainer.porcentaje
                     color: "black"
@@ -72,7 +68,6 @@ Window {
                     anchors.centerIn: parent
                 }
 
-                // Indicador de 1px
                 Item {
                     id: progressIndicator
                     width: 1
@@ -102,10 +97,54 @@ Window {
                     }
                 }
             }
-
         }
 
+        // --- Control de volumen vertical (Lateral izquierdo) ---
+        Rectangle {
+            id: volumeTrack
+            width: 50
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            color: "gray"
+            z: 10 // Asegura que quede por encima de otros elementos e intercepte el ratón/tacto
 
+            // Deslizador blanco
+            Rectangle {
+                id: volumeHandle
+                width: parent.width
+                height: 50
+                color: "white"
+
+                // Mapea el volumen (0.0 a 1.0) a la coordenada Y (1.0 arriba -> 0.0 abajo)
+                y: (1.0 - audioOutput.volume) * (volumeTrack.height - height)
+
+                Text {
+                    text: Math.round(audioOutput.volume * 100)
+                    color: "black"
+                    font.pixelSize: 18
+                    font.bold: true
+                    anchors.centerIn: parent
+                }
+            }
+
+            // Área de arrastre/interacción para el volumen
+            MouseArea {
+                id: volumeMouseArea
+                anchors.fill: parent
+
+                function updateVolume(mouseY) {
+                    // Limita el punto Y dentro de los bordes del riel
+                    var clampedY = Math.max(0, Math.min(mouseY, volumeTrack.height));
+                    // Calcula la proporción invertida (0 abajo, 1 arriba)
+                    var newVolume = 1.0 - (clampedY / volumeTrack.height);
+                    audioOutput.volume = Math.max(0.0, Math.min(1.0, newVolume));
+                }
+
+                onPressed: (mouse) => updateVolume(mouse.y)
+                onPositionChanged: (mouse) => updateVolume(mouse.y)
+            }
+        }
 
         MediaPlayer {
             id: mediaPlayer
