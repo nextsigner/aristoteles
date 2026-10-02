@@ -22,9 +22,52 @@ Window {
     Item {
         id: xApp
         width: parent.width-app.fs
-        height: parent.height-app.fs*3
+        height: parent.height-app.fs*6
         anchors.centerIn: parent
+        MouseArea {
+            id: touchArea
+            //anchors.fill: parent
+            width: app.width-volumeTrack.width
+            height: parent.height
+            anchors.right: parent.right
 
+            property real startX: 0
+
+            onPressed: (mouse) => {
+                           startX = mouse.x;
+                       }
+
+            onReleased: (mouse) => {
+                            var deltaX = mouse.x - startX;
+                            var screenWidth = app.width;
+                            var ratio = Math.abs(deltaX) / screenWidth;
+
+                            if (ratio < 0.05) {
+                                if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
+                                    mediaPlayer.pause();
+                                } else {
+                                    mediaPlayer.play();
+                                }
+                                return;
+                            }
+
+                            var minJump = 10 * 1000;
+                            var maxJump = 5 * 60 * 1000;
+
+                            var jumpTime = minJump + ratio * (maxJump - minJump);
+                            if (jumpTime > maxJump) jumpTime = maxJump;
+
+                            var newPosition = mediaPlayer.position;
+
+                            if (deltaX > 0) {
+                                newPosition += jumpTime;
+                                mediaPlayer.position = Math.min(newPosition, mediaPlayer.duration)
+                            } else {
+                                newPosition -= jumpTime;
+                                mediaPlayer.position = Math.max(newPosition, 0)
+                            }
+                        }
+        }
         Column {
             spacing: app.fs*2
             //anchors.centerIn: parent
@@ -255,50 +298,6 @@ Window {
             autoPlay: true
         }
 
-        MouseArea {
-            id: touchArea
-            //anchors.fill: parent
-            width: app.width-volumeTrack.width
-            height: parent.height
-            anchors.right: parent.right
-
-            property real startX: 0
-
-            onPressed: (mouse) => {
-                           startX = mouse.x;
-                       }
-
-            onReleased: (mouse) => {
-                            var deltaX = mouse.x - startX;
-                            var screenWidth = app.width;
-                            var ratio = Math.abs(deltaX) / screenWidth;
-
-                            if (ratio < 0.05) {
-                                if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
-                                    mediaPlayer.pause();
-                                } else {
-                                    mediaPlayer.play();
-                                }
-                                return;
-                            }
-
-                            var minJump = 10 * 1000;
-                            var maxJump = 5 * 60 * 1000;
-
-                            var jumpTime = minJump + ratio * (maxJump - minJump);
-                            if (jumpTime > maxJump) jumpTime = maxJump;
-
-                            var newPosition = mediaPlayer.position;
-
-                            if (deltaX > 0) {
-                                newPosition += jumpTime;
-                                mediaPlayer.position = Math.min(newPosition, mediaPlayer.duration)
-                            } else {
-                                newPosition -= jumpTime;
-                                mediaPlayer.position = Math.max(newPosition, 0)
-                            }
-                        }
-        }
     }
     Component.onCompleted: {
         labelTit.text="Enrique Pedro Mesa\nARISTÖTELES 1/5"
