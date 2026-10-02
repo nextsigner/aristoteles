@@ -168,7 +168,7 @@ Window {
                 //ListElement { titulo: "Física"; descripcion: "Teoría Hilemórfica"; posicion: 655000 }  // 30 seg
                 //ListElement { descripcion: "Capítulo 2: Conclusión"; posicion: 805000 }     // 60 seg
                 ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
-                ListElement { titulo: "Teoría Hilemórfica"; descripcion: "Forma y materia, sustancia primera y sustancia segunda."; posicion: 701000 }  -
+                ListElement { titulo: "Teoría Hilemórfica"; descripcion: "Forma y materia, sustancia primera y sustancia segunda."; posicion: 701000 }
                 ListElement { titulo: "Teleología"; descripcion: "Cambio, potencia y acto."; posicion: 1473000 }
                 ListElement { titulo: "Teoría de las 4 causas"; descripcion: "Escuchando..."; posicion: 1973000 }
             }
