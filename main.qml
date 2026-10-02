@@ -13,14 +13,12 @@ Window {
     color: 'black'
     property int fs: width*0.035
 
-    // Requerido por QtCore.Settings para identificar el archivo de configuración
-    //organizationName: "Unik"
-    //organizationDomain: "unik.com"
-
     // Componente Settings para guardar y restaurar datos
     Settings {
         id: apps
-        property int volumeValue: 100 // Valor predeterminado en porcentaje (0 - 100)
+        property int volumeValue: 100         // Valor predeterminado de volumen (0 - 100)
+        property string lastSource: ""       // Última URL reproducida
+        property real lastPosition: 0         // Última posición conocida (en milisegundos)
     }
 
     Item {
@@ -61,7 +59,7 @@ Window {
                     } else if (mediaPlayer.playbackState === MediaPlayer.PausedState) {
                         return "green";     // Verde si está pausado
                     } else if (mediaPlayer.mediaStatus === MediaPlayer.LoadedMedia) {
-                        return "yellow";    // Amarillo si está Listo (LoadedMedia equivale a Ready)
+                        return "yellow";    // Amarillo si está Listo
                     } else {
                         return "white";     // Blanco si está detenido o sin cargar
                     }
@@ -119,14 +117,12 @@ Window {
             color: "gray"
             z: 10
 
-            // Deslizador blanco
             Rectangle {
                 id: volumeHandle
                 width: parent.width
                 height: 50
                 color: "white"
 
-                // Mapea el volumen (0.0 a 1.0) a la coordenada Y (1.0 arriba -> 0.0 abajo)
                 y: (1.0 - audioOutput.volume) * (volumeTrack.height - height)
 
                 Text {
@@ -138,7 +134,6 @@ Window {
                 }
             }
 
-            // Área de arrastre/interacción para el volumen
             MouseArea {
                 id: volumeMouseArea
                 anchors.fill: parent
@@ -149,7 +144,7 @@ Window {
                     var finalVol = Math.max(0.0, Math.min(1.0, newVolume));
 
                     audioOutput.volume = finalVol;
-                    apps.volumeValue = Math.round(finalVol * 100); // Guarda el valor en Settings
+                    apps.volumeValue = Math.round(finalVol * 100);
                 }
 
                 onPressed: (mouse) => updateVolume(mouse.y)
@@ -160,12 +155,38 @@ Window {
         MediaPlayer {
             id: mediaPlayer
             source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
+
+            // Usamos una bandera para prevenir saltos indebidos de posición en el arranque
+            property bool positionRestored: false
+
             audioOutput: AudioOutput {
                 id: audioOutput
-                // Restaura el volumen desde Settings al iniciar (de 0 a 100 convertido a 0.0 - 1.0)
                 volume: apps.volumeValue / 100.0
             }
             autoPlay: true
+
+            // Guarda dinámicamente la posición actual mientras transcurre la reproducción
+            onPositionChanged: {
+                if (position > 0) {
+                    apps.lastPosition = position;
+                }
+            }
+
+            // Guarda el source cuando se establece o cambia
+            onSourceChanged: {
+                apps.lastSource = source.toString();
+            }
+
+            // Restaura la posición cuando el medio termina de cargar sus metadatos
+            onMediaStatusChanged: {
+                if (mediaStatus === MediaPlayer.LoadedMedia && !positionRestored) {
+                    positionRestored = true;
+                    // Compara si la URL guardada coincide con la URL del source actual
+                    if (apps.lastSource === source.toString() && apps.lastPosition > 0) {
+                        mediaPlayer.position = Math.min(apps.lastPosition, mediaPlayer.duration);
+                    }
+                }
+            }
         }
 
         MouseArea {
@@ -202,10 +223,10 @@ Window {
 
                             if (deltaX > 0) {
                                 newPosition += jumpTime;
-                                mediaPlayer.position = Math.min(newPosition, mediaPlayer.duration)
+                                mediaPlayer.position = Math.min(newPosition, mediaPlayer.duration);
                             } else {
                                 newPosition -= jumpTime;
-                                mediaPlayer.position = Math.max(newPosition, 0)
+                                mediaPlayer.position = Math.max(newPosition, 0);
                             }
                         }
         }
