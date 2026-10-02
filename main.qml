@@ -21,12 +21,13 @@ Window {
 
     Item {
         id: xApp
-        anchors.fill: parent
+        width: parent.width-app.fs*2
+        height: parent.height
+        anchors.centerIn: parent
 
         Column {
             spacing: app.fs*2
             anchors.centerIn: parent
-
             Text {
                 text: "" + getMsToString(mediaPlayer.position) + '\n'
                 width: app.width
@@ -204,7 +205,8 @@ Window {
                     }
 
                     Text {
-                        text: "Posición: " + (posicion / 1000) + " seg (" + posicion + " ms)"
+                        //text: "Posición: " + (posicion / 1000) + " seg (" + posicion + " ms)"
+                        text: "Posición: " + getMsToString((posicion)) + " de (" + getMsToString(posicion) + ")"
                         color: "#AAAAAA"
                         font.pixelSize: 18
                         anchors.horizontalCenter: parent.horizontalCenter
