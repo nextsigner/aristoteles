@@ -111,7 +111,7 @@ Window {
         Rectangle {
             id: volumeTrack
             width: app.fs*3
-            anchors.left: parent.left
+            //anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             color: "gray"
