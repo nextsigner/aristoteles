@@ -156,20 +156,20 @@ Window {
         // --- ListView Horizontal Inferior ---
         ListView {
             id: markersList
-            width: parent.width
-            height: 300
+            width: parent.width-volumeTrack.width
+            height: app.height*0.3
             anchors.bottom: parent.bottom
             orientation: ListView.Horizontal
             snapMode: ListView.SnapOneItem
             highlightRangeMode: ListView.StrictlyEnforceRange
             z: 5
 
-            model: ListModel {
+            model: lm/*ListModel {
                 ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
                 ListElement { titulo: "Teoría Hilemórfica"; descripcion: "Forma y materia, sustancia primera y sustancia segunda."; posicion: 701000 }
                 ListElement { titulo: "Teleología y Cambio"; descripcion: "Potencia y acto."; posicion: 1471000 }
-                ListElement { titulo: "Teoría de las 4 causas"; descripcion: "Escuchando..."; posicion: 1973000 }
-            }
+                ListElement { titulo: "Teoría de las 4 causas"; descripcion: "Escuchando..."; posicion: 2081600 }
+            }*/
 
             delegate: Rectangle {
                 width: markersList.width
@@ -217,6 +217,17 @@ Window {
                 if (currentItem && mediaPlayer.duration > 0) {
                     var targetPos = model.get(currentIndex).posicion;
                     mediaPlayer.position = Math.min(targetPos, mediaPlayer.duration);
+                }
+            }
+            ListModel{
+                id: lm
+                function addItem(t, d, ms){
+                 return{
+                        titulo: t,
+                        descripcion: d,
+                        posicion: ms
+                    }
+
                 }
             }
         }
@@ -275,6 +286,12 @@ Window {
                             }
                         }
         }
+    }
+    Component.onCompleted: {
+        lm.append(lm.addItem("Introducción", "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether.",0))
+        lm.append(lm.addItem("Teoría Hilemórfica", "Forma y materia, sustancia primera y sustancia segunda.", 701000))
+        lm.append(lm.addItem("Teleología y Cambio", "Potencia y acto.", 1471000))
+        lm.append(lm.addItem("Teoría de las 4 causas", "Escuchando...", 2081600))
     }
 
     Shortcut {
