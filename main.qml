@@ -13,12 +13,11 @@ Window {
     color: 'black'
     property int fs: width*0.035
 
-    // Componente Settings para guardar y restaurar datos
     Settings {
         id: apps
-        property int volumeValue: 100         // Valor predeterminado de volumen (0 - 100)
-        property string lastSource: ""       // Última URL reproducida
-        property real lastPosition: 0         // Última posición conocida (en milisegundos)
+        property int volumeValue: 100
+        property string lastSource: ""
+        property real lastPosition: 0
     }
 
     Item {
@@ -46,7 +45,8 @@ Window {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-            // --- Barra de progreso con color dinámico según estado ---
+
+            // --- Barra de progreso ---
             Rectangle {
                 id: progressContainer
                 width: parent.width
@@ -55,13 +55,13 @@ Window {
 
                 color: {
                     if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
-                        return "red";       // Rojo si está reproduciendo
+                        return "red";
                     } else if (mediaPlayer.playbackState === MediaPlayer.PausedState) {
-                        return "green";     // Verde si está pausado
+                        return "green";
                     } else if (mediaPlayer.mediaStatus === MediaPlayer.LoadedMedia) {
-                        return "yellow";    // Amarillo si está Listo
+                        return "yellow";
                     } else {
-                        return "white";     // Blanco si está detenido o sin cargar
+                        return "white";
                     }
                 }
 
@@ -107,7 +107,7 @@ Window {
             }
         }
 
-        // --- Control de volumen vertical (Lateral izquierdo) ---
+        // --- Control de volumen ---
         Rectangle {
             id: volumeTrack
             width: 50
@@ -156,35 +156,36 @@ Window {
             id: mediaPlayer
             source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
 
-            // Usamos una bandera para prevenir saltos indebidos de posición en el arranque
+            // Removido autoPlay: true
             property bool positionRestored: false
 
             audioOutput: AudioOutput {
                 id: audioOutput
                 volume: apps.volumeValue / 100.0
             }
-            autoPlay: true
 
-            // Guarda dinámicamente la posición actual mientras transcurre la reproducción
+            // Guarda la posición solo si el archivo ya fue restaurado
             onPositionChanged: {
-                if (position > 0) {
+                if (positionRestored && position > 0) {
                     apps.lastPosition = position;
                 }
             }
 
-            // Guarda el source cuando se establece o cambia
             onSourceChanged: {
                 apps.lastSource = source.toString();
             }
 
-            // Restaura la posición cuando el medio termina de cargar sus metadatos
             onMediaStatusChanged: {
                 if (mediaStatus === MediaPlayer.LoadedMedia && !positionRestored) {
                     positionRestored = true;
-                    // Compara si la URL guardada coincide con la URL del source actual
+
+                    // Si coincide la URL y hay una posición guardada previa
                     if (apps.lastSource === source.toString() && apps.lastPosition > 0) {
                         mediaPlayer.position = Math.min(apps.lastPosition, mediaPlayer.duration);
                     }
+
+                    // Iniciamos la reproducción manualmente tras aplicar la posición
+                    mediaPlayer.play();
                 }
             }
         }
