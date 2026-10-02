@@ -48,12 +48,25 @@ Window {
             color: "white"
             anchors.centerIn: parent
 
+            // Porcentaje calculado de 0 a 100
+            property int porcentaje: (mediaPlayer.duration > 0)
+                                     ? Math.floor((mediaPlayer.position / mediaPlayer.duration) * 100)
+                                     : 0
+
+            // Texto con el progreso
+            Text {
+                text: "Reproducido: %" + progressContainer.porcentaje
+                color: "black"
+                font.pixelSize: 50
+                anchors.centerIn: parent
+            }
+
+            // Indicador de 1px
             Rectangle {
                 id: progressIndicator
                 width: 1
                 height: parent.height
                 color: "black"
-                // Calcula la posición 'x' en base a la proporción transcurrida del audio
                 x: (mediaPlayer.duration > 0)
                    ? (mediaPlayer.position / mediaPlayer.duration) * (progressContainer.width - width)
                    : 0
