@@ -13,8 +13,6 @@ Window {
     color: 'black'
     property int fs: width*0.035
 
-    organizationName: "Unik"
-    organizationDomain: "unik.com"
 
     Settings {
         id: apps
