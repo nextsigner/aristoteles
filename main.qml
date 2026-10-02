@@ -164,9 +164,9 @@ Window {
             z: 5
 
             model: ListModel {
-                ListElement { descripcion: "Inicio / Introducción"; posicion: 0 }
-                ListElement { descripcion: "Capítulo 1: Planteamiento"; posicion: 30000 }  // 30 seg
-                ListElement { descripcion: "Capítulo 2: Conclusión"; posicion: 60000 }     // 60 seg
+                ListElement { titulo: "Introducción"; descripcion: "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."; posicion: 0 }
+                ListElement { titulo: "Física"; descripcion: "Teoría Hilemórfica"; posicion: 655000 }  // 30 seg
+                ListElement { titulo: "???"; descripcion: "Escuchando..."; posicion: 805000 }     // 60 seg
             }
 
             delegate: Rectangle {
@@ -181,9 +181,20 @@ Window {
                     spacing: 10
 
                     Text {
-                        text: descripcion
+                        text: titulo
+                        width: parent.parent.width
+                        wrapMode: Text.WordWrap
                         color: "white"
-                        font.pixelSize: 24
+                        font.pixelSize: app.fs
+                        font.bold: true
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    Text {
+                        text: descripcion
+                        width: parent.parent.width
+                        wrapMode: Text.WordWrap
+                        color: "white"
+                        font.pixelSize: app.fs*0.5
                         font.bold: true
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
