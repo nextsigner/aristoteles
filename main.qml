@@ -38,53 +38,74 @@ Window {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-        }
+            // --- Barra de progreso con color dinámico según estado ---
+            Rectangle {
+                id: progressContainer
+                width: parent.width
+                height: 100
+                //anchors.centerIn: parent
+                anchors.horizontalCenter: parent.horizontalCenter
 
-        // --- Barra de progreso con color dinámico según estado ---
-        Rectangle {
-            id: progressContainer
-            width: parent.width
-            height: 100
-            anchors.centerIn: parent
+                // Asignación dinámica del color según el estado del MediaPlayer
+                color: {
+                    if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
+                        return "red";       // Rojo si está reproduciendo
+                    } else if (mediaPlayer.playbackState === MediaPlayer.PausedState) {
+                        return "green";     // Verde si está pausado
+                    } else if (mediaPlayer.mediaStatus === MediaPlayer.LoadedMedia) {
+                        return "yellow";    // Amarillo si está Listo (LoadedMedia equivale a Ready)
+                    } else {
+                        return "white";     // Blanco si está detenido o sin cargar
+                    }
+                }
 
-            // Asignación dinámica del color según el estado del MediaPlayer
-            color: {
-                if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
-                    return "red";       // Rojo si está reproduciendo
-                } else if (mediaPlayer.playbackState === MediaPlayer.PausedState) {
-                    return "green";     // Verde si está pausado
-                } else if (mediaPlayer.mediaStatus === MediaPlayer.LoadedMedia) {
-                    return "yellow";    // Amarillo si está Listo (LoadedMedia equivale a Ready)
-                } else {
-                    return "white";     // Blanco si está detenido o sin cargar
+                // Porcentaje calculado de 0 a 100
+                property int porcentaje: (mediaPlayer.duration > 0)
+                                         ? Math.floor((mediaPlayer.position / mediaPlayer.duration) * 100)
+                                         : 0
+
+                // Texto con el progreso
+                Text {
+                    text: "Reproducido: %" + progressContainer.porcentaje
+                    color: "black"
+                    font.pixelSize: 50
+                    anchors.centerIn: parent
+                }
+
+                // Indicador de 1px
+                Item {
+                    id: progressIndicator
+                    width: 1
+                    height: parent.height
+                    x: (mediaPlayer.duration > 0)
+                       ? (mediaPlayer.position / mediaPlayer.duration) * (progressContainer.width - width)
+                       : 0
+                    Rectangle{
+                        width: app.fs*0.1
+                        height: parent.height
+                        anchors.centerIn: parent
+                        SequentialAnimation on color{
+                            running: true
+                            loops: Animation.Infinite
+
+                            ColorAnimation {
+                                from: "red"
+                                to: "yellow"
+                                duration: 200
+                            }
+                            ColorAnimation {
+                                from: "yellow"
+                                to: "red"
+                                duration: 350
+                            }
+                        }
+                    }
                 }
             }
 
-            // Porcentaje calculado de 0 a 100
-            property int porcentaje: (mediaPlayer.duration > 0)
-                                     ? Math.floor((mediaPlayer.position / mediaPlayer.duration) * 100)
-                                     : 0
-
-            // Texto con el progreso
-            Text {
-                text: "Reproducido: %" + progressContainer.porcentaje
-                color: "black"
-                font.pixelSize: 50
-                anchors.centerIn: parent
-            }
-
-            // Indicador de 1px
-            Rectangle {
-                id: progressIndicator
-                width: 1
-                height: parent.height
-                color: "black"
-                x: (mediaPlayer.duration > 0)
-                   ? (mediaPlayer.position / mediaPlayer.duration) * (progressContainer.width - width)
-                   : 0
-            }
         }
-        // --------------------------------------------------------
+
+
 
         MediaPlayer {
             id: mediaPlayer
