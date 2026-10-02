@@ -103,7 +103,7 @@ Window {
 
             onReleased: (mouse) => {
                 var deltaX = mouse.x - startX;
-                var screenWidth = mainWindow.width;
+                var screenWidth = app.width;
                 var ratio = Math.abs(deltaX) / screenWidth;
 
                 if (ratio < 0.05) {
