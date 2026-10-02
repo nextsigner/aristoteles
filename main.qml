@@ -28,10 +28,10 @@ Window {
             anchors.centerIn: parent
 
             Text {
-                text: "V1\n" + mediaPlayer.position + '\n'
+                text: "" + getMsToString(mediaPlayer.position) + '\n'
                 width: app.width
                 color: 'white'
-                font.pixelSize: app.fs
+                font.pixelSize: app.fs*2
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -291,11 +291,31 @@ Window {
         lm.append(lm.addItem("Introducción", "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether.",0))
         lm.append(lm.addItem("Teoría Hilemórfica", "Forma y materia, sustancia primera y sustancia segunda.", 701000))
         lm.append(lm.addItem("Teleología y Cambio", "Potencia y acto.", 1471000))
-        lm.append(lm.addItem("Teoría de las 4 causas", "Escuchando...", 2081600))
+        lm.append(lm.addItem("Teoría de las 4 causas", "Formal, Material, Eficiente y Final", 2081600))
     }
 
     Shortcut {
         sequence: 'Esc'
         onActivated: Qt.quit()
+    }
+    function getMsToString(ms) {
+        if (isNaN(ms) || ms < 0) {
+            return "00:00:00";
+        }
+
+        // Convertir milisegundos a segundos totales
+        var totalSeconds = Math.floor(ms / 1000);
+
+        // Calcular horas, minutos y segundos restables
+        var hours = Math.floor(totalSeconds / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
+
+        // Formatear a 2 dígitos con cero inicial
+        var hStr = hours.toString().padStart(2, '0');
+        var mStr = minutes.toString().padStart(2, '0');
+        var sStr = seconds.toString().padStart(2, '0');
+
+        return hStr + ":" + mStr + ":" + sStr;
     }
 }
