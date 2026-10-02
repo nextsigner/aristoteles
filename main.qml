@@ -22,7 +22,7 @@ Window {
     Item {
         id: xApp
         width: parent.width-app.fs
-        height: parent.height
+        height: parent.height-app.fs*3
         anchors.centerIn: parent
 
         Column {
@@ -30,7 +30,7 @@ Window {
             anchors.centerIn: parent
             Text {
                 text: "" + getMsToString(mediaPlayer.position) + '\n'
-                width: xApp.width
+                width: progressContainer.width
                 color: 'white'
                 font.pixelSize: app.fs*2
                 wrapMode: Text.WordWrap
@@ -39,7 +39,7 @@ Window {
             }
             Text {
                 text: "URL: " + mediaPlayer.source
-                width: xApp.width
+                width: progressContainer.width
                 color: 'white'
                 font.pixelSize: app.fs
                 wrapMode: Text.WrapAnywhere
@@ -48,7 +48,7 @@ Window {
             }
             Text {
                 id: labelTit
-                width: xApp.width
+                width: progressContainer.width
                 color: 'white'
                 font.pixelSize: app.fs*2
                 wrapMode: Text.WordWrap
@@ -59,7 +59,7 @@ Window {
             // --- Barra de progreso ---
             Rectangle {
                 id: progressContainer
-                width: xApp.width
+                width: xApp.width-volumeTrack.width
                 height: app.fs*4
                 anchors.horizontalCenter: parent.horizontalCenter
 
