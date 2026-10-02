@@ -21,7 +21,7 @@ Window {
 
     Item {
         id: xApp
-        width: parent.width-app.fs*2
+        width: parent.width-app.fs
         height: parent.height
         anchors.centerIn: parent
 
@@ -30,7 +30,7 @@ Window {
             anchors.centerIn: parent
             Text {
                 text: "" + getMsToString(mediaPlayer.position) + '\n'
-                width: app.width
+                width: xApp.width
                 color: 'white'
                 font.pixelSize: app.fs*2
                 wrapMode: Text.WordWrap
@@ -39,10 +39,19 @@ Window {
             }
             Text {
                 text: "URL: " + mediaPlayer.source
-                width: app.width
+                width: xApp.width
                 color: 'white'
                 font.pixelSize: app.fs
                 wrapMode: Text.WrapAnywhere
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Text {
+                id: labelTit
+                width: xApp.width
+                color: 'white'
+                font.pixelSize: app.fs*2
+                wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
@@ -50,7 +59,7 @@ Window {
             // --- Barra de progreso ---
             Rectangle {
                 id: progressContainer
-                width: app.width
+                width: xApp.width
                 height: app.fs*4
                 anchors.horizontalCenter: parent.horizontalCenter
 
@@ -112,7 +121,8 @@ Window {
         Rectangle {
             id: volumeTrack
             width: app.fs*3
-            //anchors.left: parent.left
+            border.width: 2
+            border.color: 'white'
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             color: "gray"
@@ -178,6 +188,10 @@ Window {
                 color: "#222222"
                 border.color: "white"
                 border.width: 1
+                MouseArea{
+                    anchors.fill: parent
+                    onDoubleClicked: mediaPlayer.position = posicion
+                }
 
                 Column {
                     anchors.centerIn: parent
@@ -290,6 +304,7 @@ Window {
         }
     }
     Component.onCompleted: {
+        labelTit.text="Enrique Pedro Mesa\nARISTÖTELES 1/5"
         lm.append(lm.addItem("Introducción", "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether.",0))
         lm.append(lm.addItem("Teoría Hilemórfica", "Forma y materia, sustancia primera y sustancia segunda.", 701000))
         lm.append(lm.addItem("Teleología y Cambio", "Potencia y acto.", 1471000))
