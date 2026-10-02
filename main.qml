@@ -40,13 +40,25 @@ Window {
             }
         }
 
-        // --- Barra de progreso (Slider no interactivo) ---
+        // --- Barra de progreso con color dinámico según estado ---
         Rectangle {
             id: progressContainer
             width: parent.width
             height: 100
-            color: "white"
             anchors.centerIn: parent
+
+            // Asignación dinámica del color según el estado del MediaPlayer
+            color: {
+                if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
+                    return "red";       // Rojo si está reproduciendo
+                } else if (mediaPlayer.playbackState === MediaPlayer.PausedState) {
+                    return "green";     // Verde si está pausado
+                } else if (mediaPlayer.mediaStatus === MediaPlayer.LoadedMedia) {
+                    return "yellow";    // Amarillo si está Listo (LoadedMedia equivale a Ready)
+                } else {
+                    return "white";     // Blanco si está detenido o sin cargar
+                }
+            }
 
             // Porcentaje calculado de 0 a 100
             property int porcentaje: (mediaPlayer.duration > 0)
@@ -72,7 +84,7 @@ Window {
                    : 0
             }
         }
-        // ------------------------------------------------
+        // --------------------------------------------------------
 
         MediaPlayer {
             id: mediaPlayer
