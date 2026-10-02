@@ -13,6 +13,16 @@ Window {
     color: 'black'
     property int fs: width*0.035
 
+    // Requerido por QtCore.Settings para identificar el archivo de configuración
+    organizationName: "Unik"
+    organizationDomain: "unik.com"
+
+    // Componente Settings para guardar y restaurar datos
+    Settings {
+        id: apps
+        property int volumeValue: 100 // Valor predeterminado en porcentaje (0 - 100)
+    }
+
     Item {
         id: xApp
         anchors.fill: parent
@@ -107,7 +117,7 @@ Window {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             color: "gray"
-            z: 10 // Asegura que quede por encima de otros elementos e intercepte el ratón/tacto
+            z: 10
 
             // Deslizador blanco
             Rectangle {
@@ -134,11 +144,12 @@ Window {
                 anchors.fill: parent
 
                 function updateVolume(mouseY) {
-                    // Limita el punto Y dentro de los bordes del riel
                     var clampedY = Math.max(0, Math.min(mouseY, volumeTrack.height));
-                    // Calcula la proporción invertida (0 abajo, 1 arriba)
                     var newVolume = 1.0 - (clampedY / volumeTrack.height);
-                    audioOutput.volume = Math.max(0.0, Math.min(1.0, newVolume));
+                    var finalVol = Math.max(0.0, Math.min(1.0, newVolume));
+
+                    audioOutput.volume = finalVol;
+                    apps.volumeValue = Math.round(finalVol * 100); // Guarda el valor en Settings
                 }
 
                 onPressed: (mouse) => updateVolume(mouse.y)
@@ -151,7 +162,8 @@ Window {
             source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
             audioOutput: AudioOutput {
                 id: audioOutput
-                volume: 1.0
+                // Restaura el volumen desde Settings al iniciar (de 0 a 100 convertido a 0.0 - 1.0)
+                volume: apps.volumeValue / 100.0
             }
             autoPlay: true
         }
