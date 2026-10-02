@@ -20,26 +20,6 @@ Window {
         property real lastPosition: 0
     }
 
-    // Variable temporal para congelar el valor guardado en disco
-    // y evitar que MediaPlayer lo pise con 0 mientras carga.
-    property real savedPositionToRestore: 0
-    property string targetSource: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
-
-    Component.onCompleted: {
-        // Leemos e inmovilizamos el valor guardado antes de que cambie cualquier cosa
-        if (apps.lastSource === targetSource) {
-            savedPositionToRestore = apps.lastPosition
-        }
-    }
-
-    // Guarda la posición actual en Settings cuando la app se cierra o destruye
-    Component.onDestruction: {
-        if (mediaPlayer.position > 0) {
-            apps.lastSource = mediaPlayer.source.toString()
-            apps.lastPosition = mediaPlayer.position
-        }
-    }
-
     Item {
         id: xApp
         anchors.fill: parent
@@ -174,43 +154,47 @@ Window {
 
         MediaPlayer {
             id: mediaPlayer
-            source: app.targetSource
-            property bool restored: false
+            source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
+
+            // Bandera para saber si ya restauramos la posición inicial guardada
+            property bool positionRestored: false
+
+            // Copia temporal de la posición a restaurar para evitar que se pise con el valor 0 de arranque
+            property real savedPosToRestore: apps.lastPosition
 
             audioOutput: AudioOutput {
                 id: audioOutput
                 volume: apps.volumeValue / 100.0
             }
 
-            // Método explícito para forzar la restauración de la posición
-            function checkAndRestore() {
-                if (!restored && duration > 0) {
-                    restored = true
-                    if (app.savedPositionToRestore > 0) {
-                        var target = Math.min(app.savedPositionToRestore, duration)
-                        mediaPlayer.setPosition(target)
+            // Intenta restaurar la posición en cuanto el reproductor esté listo y sea seekable
+            function tryRestorePosition() {
+                if (!positionRestored && seekable && duration > 0) {
+                    positionRestored = true;
+                    if (apps.lastSource === source.toString() && savedPosToRestore > 0) {
+                        var targetPos = Math.min(savedPosToRestore, duration);
+                        mediaPlayer.position = targetPos;
                     }
+                    mediaPlayer.play();
                 }
             }
 
-            // Escuchamos la duración real del archivo cargado
-            onDurationChanged: {
-                checkAndRestore()
-            }
-
-            // También escuchamos los cambios de estado por seguridad
-            onPlaybackStateChanged: {
-                if (playbackState === MediaPlayer.PlayingState) {
-                    checkAndRestore()
+            onSeekableChanged: tryRestorePosition()
+            onMediaStatusChanged: {
+                if (mediaStatus === MediaPlayer.LoadedMedia || mediaStatus === MediaPlayer.BufferedMedia) {
+                    tryRestorePosition();
                 }
             }
 
-            // Guardamos la posición cada vez que se pausa
-            onPlaybackStateChanged: {
-                if (playbackState === MediaPlayer.PausedState && position > 0) {
-                    apps.lastSource = mediaPlayer.source.toString()
-                    apps.lastPosition = mediaPlayer.position
+            // Guarda la posición en Settings ÚNICAMENTE después de haber restaurado la previa
+            onPositionChanged: {
+                if (positionRestored && position > 0) {
+                    apps.lastPosition = position;
                 }
+            }
+
+            onSourceChanged: {
+                apps.lastSource = source.toString();
             }
         }
 
