@@ -31,7 +31,7 @@ Window {
         MouseArea {
             id: touchArea
             //anchors.fill: parent
-            width: app.width-volumeTrack.width
+            width: xApp.width-volumeTrack.width
             height: parent.height
             anchors.right: parent.right
 
@@ -43,7 +43,7 @@ Window {
 
             onReleased: (mouse) => {
                             var deltaX = mouse.x - startX;
-                            var screenWidth = app.width;
+                            var screenWidth = xApp.width;
                             var ratio = Math.abs(deltaX) / screenWidth;
 
                             if (ratio < 0.05) {
@@ -152,7 +152,7 @@ Window {
             anchors.bottomMargin: app.fs*3
             ListView {
                 id: lvAudios
-                width: parent.width
+                width: xApp.width
                 height: app.height*0.2
                 orientation: ListView.Horizontal
                 snapMode: ListView.SnapOneItem
@@ -307,7 +307,7 @@ Window {
             // --- ListView Horizontal Inferior ---
             ListView {
                 id: markersList
-                width: parent.width
+                width: xApp.width
                 height: app.height*0.3
                 orientation: ListView.Horizontal
                 snapMode: ListView.SnapOneItem
