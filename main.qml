@@ -329,8 +329,10 @@ Window {
         }
 
         Rectangle{
+            id: xLog
             color: 'black'
             anchors.fill: parent
+            visible: false
             Text{
                 id: log
                 width: parent.width-app.fs
