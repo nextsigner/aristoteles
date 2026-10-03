@@ -378,7 +378,7 @@ Window {
         item.marc.ms=2081600
         marcs.push(item.marc)
 
-        j.item.push(item)
+        j.items.push(item)
 
         app.json=j
 
