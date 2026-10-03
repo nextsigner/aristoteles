@@ -336,7 +336,7 @@ Window {
                 width: parent.width-app.fs
                 color: 'white'
                 wrapMode: Text.WordWrap
-                font.pixelSize: 20
+                font.pixelSize: 12
                 anchors.centerIn: parent
             }
         }
@@ -359,32 +359,37 @@ Window {
 
         j.items.push(item)
 
+
+        marc={}
+        marc.titulo="Teoría Hilemórficas"
+        marc.des="Forma y materia, sustancia primera y sustancia segunda."
+        marc.ms=701000
+        marcs.push(marc)
+        item.marcs.push(marcs)
+
+        marc={}
+        marc.titulo="Teleología y Cambio"
+        marc.des="Potencia y acto."
+        marc.ms=1471000
+        marcs.push(marc)
+        item.marcs.push(marcs)
+
+        marc={}
+        marc.titulo="Teleología y Cambio"
+        marc.des="Potencia y acto."
+        marc.ms=1471000
+        marcs.push(marc)
+        item.marcs.push(marcs)
+
+        marc={}
+        marc.titulo="Teoría de las 4 causas"
+        marc.des="Formal, Material, Eficiente y Final"
+        marc.ms=2081600
+        marcs.push(marc)
+        item.marcs.push(marcs)
+
         log.text="DATO:\n"+JSON.stringify(j, null, 2)
         return
-
-        item.marc={}
-        item.marc.titulo="Teoría Hilemórficas"
-        item.marc.des="Forma y materia, sustancia primera y sustancia segunda."
-        item.marc.ms=701000
-        marcs.push(item.marc)
-
-        item.marc={}
-        item.marc.titulo="Teleología y Cambio"
-        item.marc.des="Potencia y acto."
-        item.marc.ms=1471000
-        marcs.push(item.marc)
-
-        item.marc={}
-        item.marc.titulo="Teleología y Cambio"
-        item.marc.des="Potencia y acto."
-        item.marc.ms=1471000
-        marcs.push(item.marc)
-
-        item.marc={}
-        item.marc.titulo="Teoría de las 4 causas"
-        item.marc.des="Formal, Material, Eficiente y Final"
-        item.marc.ms=2081600
-        marcs.push(item.marc)
 
         j.items.push(item)
 
