@@ -23,7 +23,9 @@ Window {
         id: xApp
         width: parent.width-app.fs
         height: parent.height-app.fs*6
-        anchors.centerIn: parent
+        //anchors.centerIn: parent
+        anchors.horizontalCenter: parent.horizontalCenter
+        //anchors.verticalCenter: parent.verticalCenter
         MouseArea {
             id: touchArea
             //anchors.fill: parent
@@ -156,6 +158,8 @@ Window {
                 id: progressContainer
                 width: xApp.width-volumeTrack.width
                 height: app.fs*4
+                border.width: 1
+                border.color: 'white'
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 color: {
@@ -176,8 +180,18 @@ Window {
 
                 Text {
                     text: "Reproducido: %" + progressContainer.porcentaje
-                    color: "black"
-                    font.pixelSize: parent.height*0.8
+                    color: {
+                        if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
+                            return "white";
+                        } else if (mediaPlayer.playbackState === MediaPlayer.PausedState) {
+                            return "white";
+                        } else if (mediaPlayer.mediaStatus === MediaPlayer.LoadedMedia) {
+                            return "black";
+                        } else {
+                            return "black";
+                        }
+                    }
+                    font.pixelSize: parent.height*0.7
                     anchors.centerIn: parent
                 }
 
