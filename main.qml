@@ -347,6 +347,7 @@ Window {
         let item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
         item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
+        item.marcs=[]
         let marcs=[]
 
         let marc={}
@@ -354,8 +355,9 @@ Window {
         marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
         marc.ms=0
         marcs.push(marc)
+        item.marcs.push(marcs)
 
-        j.items.push(marcs)
+        j.items.push(item)
 
         log.text="DATO:\n"+JSON.stringify(j, null, 2)
         return
