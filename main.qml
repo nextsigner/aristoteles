@@ -74,9 +74,6 @@ Window {
         }
         Column {
             spacing: app.fs*2
-            //anchors.centerIn: parent
-            //anchors.verticalCenter: parent.verticalCenter
-            //anchors.verticalCenterOffset: 0-progressContainer.height//-markersList.height
             anchors.top: parent.top
             anchors.topMargin: app.fs*8
             Text {
@@ -85,15 +82,6 @@ Window {
                 color: 'white'
                 font.pixelSize: app.fs*2
                 wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-            Text {
-                text: "URL: " + mediaPlayer.source
-                width: progressContainer.width
-                color: 'white'
-                font.pixelSize: app.fs
-                wrapMode: Text.WrapAnywhere
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
@@ -153,7 +141,7 @@ Window {
             ListView {
                 id: lvAudios
                 width: xApp.width
-                height: app.height*0.2
+                height: xApp.height*0.2
                 orientation: ListView.Horizontal
                 snapMode: ListView.SnapOneItem
                 highlightRangeMode: ListView.StrictlyEnforceRange
@@ -308,7 +296,7 @@ Window {
             ListView {
                 id: markersList
                 width: xApp.width
-                height: app.height*0.3
+                height: xApp.height*0.3
                 orientation: ListView.Horizontal
                 snapMode: ListView.SnapOneItem
                 highlightRangeMode: ListView.StrictlyEnforceRange
