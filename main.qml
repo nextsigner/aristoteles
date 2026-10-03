@@ -349,13 +349,13 @@ Window {
         item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
         let marcs=[]
 
-        /*let marc={}
+        let marc={}
         marc.titulo="Introducción"
         marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
         marc.ms=0
-        marcs.push(marc)*/
+        marcs.push(marc)
 
-        //j.items.marcs.push(marcs)
+        j.items.marcs.push(marcs)
 
         log.text="DATO:\n"+JSON.stringify(j, null, 2)
         return
