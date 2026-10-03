@@ -211,14 +211,19 @@ Window {
                     }
                 }
             }
-            Text {
-                text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)
-                width: progressContainer.width
-                color: 'white'
-                font.pixelSize: app.fs*2
-                wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignHCenter
+            Item{
+                width: xApp.width
+                height: volumeTrack.height-lvAudios.height-markersList.height-progressContainer.height-parent.spacing*3
                 anchors.horizontalCenter: parent.horizontalCenter
+                Text {
+                    text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)
+                    width: progressContainer.width
+                    color: 'white'
+                    font.pixelSize: app.fs*2
+                    wrapMode: Text.WordWrap
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.centerIn: parent
+                }
             }
             Rectangle {
                 id: progressContainer
