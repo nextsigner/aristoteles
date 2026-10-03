@@ -13,6 +13,7 @@ Window {
     title: "Aristoteles"
     color: 'black'
     property int fs: width*0.035
+    property var j: {}
 
 
     Settings {
@@ -319,7 +320,7 @@ Window {
         }
         MediaPlayer {
             id: mediaPlayer
-            source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
+            //source: "https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
             audioOutput: AudioOutput {
                 id: audioOutput
                 volume: apps.volumeValue / 100.0
@@ -329,16 +330,65 @@ Window {
 
     }
     Component.onCompleted: {
-        labelTit.text="Enrique Pedro Mesa\nARISTÖTELES 1/5"
+        j={}
+        j.items=[]
+        let item={}
+        item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
+        item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
+        item.marcs=[]
+
+        item.marc={}
+        item.marc.titulo="Introducción"
+        item.marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
+        item.marc.ms=0
+        marcs.push(item.marc)
+
+        item.marc={}
+        item.marc.titulo="Teoría Hilemórficas"
+        item.marc.des="Forma y materia, sustancia primera y sustancia segunda."
+        item.marc.ms=701000
+        marcs.push(item.marc)
+
+        item.marc={}
+        item.marc.titulo="Teleología y Cambio"
+        item.marc.des="Potencia y acto."
+        item.marc.ms=1471000
+        marcs.push(item.marc)
+
+        item.marc={}
+        item.marc.titulo="Teleología y Cambio"
+        item.marc.des="Potencia y acto."
+        item.marc.ms=1471000
+        marcs.push(item.marc)
+
+        item.marc={}
+        item.marc.titulo="Teoría de las 4 causas"
+        item.marc.des="Formal, Material, Eficiente y Final"
+        item.marc.ms=2081600
+        marcs.push(item.marc)
+
+        j.item.push(item)
+
+        loadData(0)
+
+        /*labelTit.text="Enrique Pedro Mesa\nARISTÖTELES 1/5"
         lm.append(lm.addItem("Introducción", "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether.",0))
         lm.append(lm.addItem("Teoría Hilemórfica", "Forma y materia, sustancia primera y sustancia segunda.", 701000))
         lm.append(lm.addItem("Teleología y Cambio", "Potencia y acto.", 1471000))
-        lm.append(lm.addItem("Teoría de las 4 causas", "Formal, Material, Eficiente y Final", 2081600))
+        lm.append(lm.addItem("Teoría de las 4 causas", "Formal, Material, Eficiente y Final", 2081600))*/
     }
 
     Shortcut {
         sequence: 'Esc'
         onActivated: Qt.quit()
+    }
+    function loadData(index){
+        let item=j.items[index]
+        labelTit.text=item.tit
+        for(var i=0;i<item.marcs.length;i++){
+            let marc=item.marcs[i]
+            lm.append(lm.addItem(marc.titulo, marc.des,marc.ms))
+        }
     }
     function getMsToString(ms) {
         if (isNaN(ms) || ms < 0) {
