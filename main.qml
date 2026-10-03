@@ -216,7 +216,8 @@ Window {
                 height: app.fs*4
                 border.width: 1
                 border.color: 'white'
-                anchors.horizontalCenter: parent.horizontalCenter
+                //anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.left
 
                 color: {
                     if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
