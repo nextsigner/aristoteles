@@ -95,15 +95,6 @@ Window {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-            Text {
-                id: labelTit
-                width: progressContainer.width
-                color: 'white'
-                font.pixelSize: app.fs*2
-                wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
         }
 
         // --- Control de volumen vertical (Lateral izquierdo) ---
@@ -478,13 +469,15 @@ Window {
         onActivated: Qt.quit()
     }
     function loadDataAudios(){
+        lmAudios.clear()
         for(var i=0;i<app.json.items.length;i++){
             lmAudios.append(lmAudios.addItem(app.json.items[i].tit, app.json.items[i].des,  app.json.items[i].url))
         }
     }
     function loadData(index){
+        lm.clear()
         let item=app.json.items[index]
-        labelTit.text=item.tit
+        //labelTit.text=item.tit
         mediaPlayer.source=item.url
         //xLog.visible=true
         //log.text=JSON.stringify(item, null, 2)
