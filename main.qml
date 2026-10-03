@@ -353,7 +353,7 @@ Window {
         let item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
         item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
-        item.marcs=[]
+        //item.marcs=[]
         let marcs=[]
 
         let marc={}
@@ -378,19 +378,12 @@ Window {
         //item.marcs.push(marcs)
 
         marc={}
-        marc.titulo="Teleología y Cambio"
-        marc.des="Potencia y acto."
-        marc.ms=1471000
-        marcs.push(marc)
-        //item.marcs.push(marcs)
-
-        marc={}
         marc.titulo="Teoría de las 4 causas"
         marc.des="Formal, Material, Eficiente y Final"
         marc.ms=2081600
         marcs.push(marc)
 
-        item.marcs.push(marcs)
+        item.marcs=marcs
         j.items.push(item)
 
         app.json=j
