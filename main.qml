@@ -532,6 +532,9 @@ Window {
         marc.ms=getHmsToMs(0, 0, 0)
         marcs.push(marc)
 
+        item.marcs=marcs
+        j.items.push(item)
+
         app.json=j
 
         loadDataAudios()
