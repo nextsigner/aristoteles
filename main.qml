@@ -355,7 +355,7 @@ Window {
         marc.ms=0
         marcs.push(marc)
 
-        j.items.marcs.push(marcs)
+        j.items[0].marcs.push(marcs)
 
         log.text="DATO:\n"+JSON.stringify(j, null, 2)
         return
