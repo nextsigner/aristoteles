@@ -328,6 +328,17 @@ Window {
             autoPlay: true
         }
 
+        Rectangle{
+            color: '#ff8833'
+            anchors.fill: parent
+            Text{
+                id: log
+                width: parent.width-app.fs
+                wrapMode: Text.WordWrap
+                font.pixelSize: 20
+                anchors.centerIn: parent
+            }
+        }
     }
     Component.onCompleted: {
         j={}
@@ -368,6 +379,8 @@ Window {
         marcs.push(item.marc)
 
         j.item.push(item)
+
+        log.text=JSON.stringify(j, null, 2)
 
         loadData(0)
 
