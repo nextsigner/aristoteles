@@ -348,6 +348,9 @@ Window {
         item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
         item.marcs=[]
 
+        log.text="DATO:\n"+JSON.stringify(j, null, 2)
+        return
+
         item.marc={}
         item.marc.titulo="Introducción"
         item.marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
