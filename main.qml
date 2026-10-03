@@ -166,7 +166,7 @@ Window {
                 highlightRangeMode: ListView.StrictlyEnforceRange
                 z: 5
 
-                model: lm
+                model: lmAudios
                 delegate: Rectangle {
                     width: lvAudios.width
                     height: lvAudios.height
@@ -421,6 +421,7 @@ Window {
         let item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
         item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
+        item.des="Se introduce a los conceptos de física y metafísica y comienza a explicar la física aristotélica."
         let marcs=[]
 
         let marc={}
@@ -454,6 +455,7 @@ Window {
         item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/2.wav"
         item.tit="Enrique Pedro Mesa\nARISTÖTELES 2/5"
+        item.des="Comienza a explicar metafísica aristotélica, axiomas, categorías (principios universales que rigen la realidad física)"
         marcs=[]
 
         marc={}
@@ -467,12 +469,18 @@ Window {
 
         app.json=j
 
+        loadDataAudios()
         loadData(0)
     }
 
     Shortcut {
         sequence: 'Esc'
         onActivated: Qt.quit()
+    }
+    function loadDataAudios(){
+        for(var i=0;i<app.json.items.length;i++){
+            lmAudios.append(lmAudios.addItem(app.json.items[i].tit, app.json.items[i].des,  app.json.items[i].url))
+        }
     }
     function loadData(index){
         let item=app.json.items[index]
