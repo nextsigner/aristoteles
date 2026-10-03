@@ -9,6 +9,7 @@ Window {
     width: Qt.platform.os==='android'?640:608
     height: Qt.platform.os==='android'?480:1080
     visible: true
+    //visibility: 'FullScreen'
     title: "Aristoteles"
     color: 'black'
     property int fs: width*0.035
@@ -73,8 +74,10 @@ Window {
         Column {
             spacing: app.fs*2
             //anchors.centerIn: parent
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.verticalCenterOffset: 0-progressContainer.height//-markersList.height
+            //anchors.verticalCenter: parent.verticalCenter
+            //anchors.verticalCenterOffset: 0-progressContainer.height//-markersList.height
+            anchors.top: parent.top
+            anchors.topMargin: app.fs*8
             Text {
                 text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)
                 width: progressContainer.width
@@ -108,13 +111,13 @@ Window {
         Rectangle {
             id: volumeTrack
             width: app.fs*3
+            height: parent.height-app.fs*2
             border.width: 2
             border.color: 'white'
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
             color: "gray"
             z: 10
             anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
 
             Rectangle {
                 id: volumeHandle
