@@ -329,11 +329,12 @@ Window {
         }
 
         Rectangle{
-            color: '#ff8833'
+            color: 'black'
             anchors.fill: parent
             Text{
                 id: log
                 width: parent.width-app.fs
+                color: 'white'
                 wrapMode: Text.WordWrap
                 font.pixelSize: 20
                 anchors.centerIn: parent
@@ -346,15 +347,15 @@ Window {
         let item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
         item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
-        item.marcs=[]
+        let marcs=[]
 
-
-
-        let marc={}
+        /*let marc={}
         marc.titulo="Introducción"
         marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
         marc.ms=0
-        marcs.push(marc)
+        marcs.push(marc)*/
+
+        //j.items.marcs.push(marcs)
 
         log.text="DATO:\n"+JSON.stringify(j, null, 2)
         return
