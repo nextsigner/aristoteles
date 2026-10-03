@@ -147,6 +147,7 @@ Window {
                 snapMode: ListView.SnapOneItem
                 highlightRangeMode: ListView.StrictlyEnforceRange
                 z: 5
+                rotation: -180
 
                 model: lmAudios
                 delegate: Rectangle {
@@ -156,6 +157,7 @@ Window {
                     border.color: "white"
                     border.width: 1
                     clip: true
+                    rotation: -180
                     MouseArea{
                         anchors.fill: parent
                         //onDoubleClicked: mediaPlayer.position = posicion
@@ -219,7 +221,7 @@ Window {
                     text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)
                     width: progressContainer.width
                     color: 'white'
-                    font.pixelSize: app.fs*2
+                    font.pixelSize: app.fs*4
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
                     anchors.centerIn: parent
@@ -274,7 +276,7 @@ Window {
                             return "black";
                         }
                     }
-                    font.pixelSize: parent.height*0.7
+                    font.pixelSize: parent.height*0.5
                     anchors.centerIn: parent
                 }
 
@@ -317,6 +319,7 @@ Window {
                 snapMode: ListView.SnapOneItem
                 highlightRangeMode: ListView.StrictlyEnforceRange
                 z: 5
+                rotation: -180
 
                 model: lm
                 delegate: Rectangle {
@@ -326,6 +329,7 @@ Window {
                     border.color: "white"
                     border.width: 1
                     clip: true
+                    rotation: -180
                     MouseArea{
                         anchors.fill: parent
                         onDoubleClicked: mediaPlayer.position = posicion
