@@ -519,6 +519,19 @@ Window {
         item.marcs=marcs
         j.items.push(item)
 
+        //Item 3
+        item={}
+        item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/3.wav"
+        item.tit="Enrique Pedro Mesa\nARISTÖTELES 3/5"
+        item.des="Escuchando..."
+        marcs=[]
+
+        marc={}
+        marc.titulo="Introducción 3"
+        marc.des="???"
+        marc.ms=getHmsToMs(0, 0, 0)
+        marcs.push(marc)
+
         app.json=j
 
         loadDataAudios()
