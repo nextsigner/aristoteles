@@ -72,7 +72,7 @@ Window {
                             }
                         }
         }
-        Column {
+        /*Column {
             spacing: app.fs*2
             anchors.top: parent.top
             anchors.topMargin: app.fs*8
@@ -85,7 +85,7 @@ Window {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-        }
+        }*/
 
         // --- Control de volumen vertical (Lateral izquierdo) ---
         Rectangle {
@@ -136,8 +136,9 @@ Window {
 
         Column{
             spacing: app.fs
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: app.fs*3
+            //anchors.bottom: parent.bottom
+            //anchors.bottomMargin: app.fs*3
+            anchors.verticalCenter: parent.verticalCenter
             ListView {
                 id: lvAudios
                 width: xApp.width
@@ -209,6 +210,15 @@ Window {
 
                     }
                 }
+            }
+            Text {
+                text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)
+                width: progressContainer.width
+                color: 'white'
+                font.pixelSize: app.fs*2
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
             }
             Rectangle {
                 id: progressContainer
