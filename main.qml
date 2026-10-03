@@ -359,7 +359,6 @@ Window {
 
         j.items.push(item)
 
-
         marc={}
         marc.titulo="Teoría Hilemórficas"
         marc.des="Forma y materia, sustancia primera y sustancia segunda."
@@ -388,14 +387,9 @@ Window {
         marcs.push(marc)
         item.marcs.push(marcs)
 
-        log.text="DATO:\n"+JSON.stringify(j, null, 2)
-        return
-
-        j.items.push(item)
-
         app.json=j
 
-        log.text=JSON.stringify(app.json, null, 2)
+        //log.text=JSON.stringify(app.json, null, 2)
 
         loadData(0)
 
