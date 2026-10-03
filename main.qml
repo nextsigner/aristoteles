@@ -450,15 +450,39 @@ Window {
         marcs=[]
 
         marc={}
-        marc.titulo="Introducción a la Metafísica"
+        marc.titulo="Introducción a la METAFÍSICA"
         marc.des="¿Qué es la Metafísica? Estudia la realidad en cuanto tal."
         marc.ms=0
         marcs.push(marc)
 
         marc={}
         marc.titulo="El ENTE"
-        marc.des="¿Qué es un Ente?"
+        marc.des="¿Qué es un Ente? El verbo SER. Las cosas son en cuanto que SON."
         marc.ms=getHmsToMs(0, 7, 8)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="AXIOMAS Y CATAGORÍAS"
+        marc.des="¿Qué son los Axiomas y Categorías? Principios universales e indemostrables que rigen lo real."
+        marc.ms=getHmsToMs(0, 9, 33)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="AXIOMAS"
+        marc.des="Se explican algunos axiomas. Principio de identidad y de NO contradicción."
+        marc.ms=getHmsToMs(0, 11, 48)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="CATEGORÍAS"
+        marc.des="Se explican las categorías. Lo que puedo predicar de cualquier cosa. Por ejemplo tiempo y espacio."
+        marc.ms=getHmsToMs(0, 17, 10)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="EL PRIMER MOTOR INMOVIL"
+        marc.des="La idea de bien. Teleologica de atraidos por la perfección, ACTO PURO SIN POTENCIA que solo se piensa a si mismo."
+        marc.ms=getHmsToMs(0, 19, 29)
         marcs.push(marc)
 
         item.marcs=marcs
