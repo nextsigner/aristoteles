@@ -24,8 +24,9 @@ Window {
 
     Item {
         id: xApp
-        width: parent.width-app.fs
-        height: parent.height-app.fs*6
+        width: !app.appRotated?parent.width-app.fs:parent.height-app.fs
+        height: !app.appRotated?parent.height-app.fs*6:parent.width-app.fs*6
+        rotation: !app.appRotated?0:90
         anchors.centerIn: parent
         MouseArea {
             id: touchArea
@@ -165,6 +166,7 @@ Window {
                     color: "#222222"
                     border.color: "white"
                     border.width: 1
+                    clip: true
                     MouseArea{
                         anchors.fill: parent
                         //onDoubleClicked: mediaPlayer.position = posicion
@@ -179,7 +181,7 @@ Window {
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            font.pixelSize: app.fs*2.5
+                            font.pixelSize: app.fs*2
                             font.bold: true
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
@@ -189,7 +191,7 @@ Window {
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            font.pixelSize: app.fs*1.5
+                            font.pixelSize: app.fs*1.2
                             font.bold: true
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
@@ -319,6 +321,7 @@ Window {
                     color: "#222222"
                     border.color: "white"
                     border.width: 1
+                    clip: true
                     MouseArea{
                         anchors.fill: parent
                         onDoubleClicked: mediaPlayer.position = posicion
@@ -334,7 +337,7 @@ Window {
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            font.pixelSize: app.fs*1.5
+                            font.pixelSize: app.fs*2
                             font.bold: true
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
@@ -344,7 +347,7 @@ Window {
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            font.pixelSize: app.fs
+                            font.pixelSize: app.fs*1.2
                             font.bold: true
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
