@@ -157,12 +157,13 @@ Window {
         Column{
             spacing: app.fs
             anchors.bottom: parent.bottom
+            anchors.bottomMargin: app.fs*3
             Rectangle {
                 id: progressContainer
                 width: xApp.width-volumeTrack.width
                 height: app.fs*4
-                border.width: 4
-                border.color: 'blue'
+                border.width: 1
+                border.color: 'white'
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 color: {
@@ -182,7 +183,18 @@ Window {
                                          : 0
 
                 Text {
-                    text: "Reproducido: %" + progressContainer.porcentaje
+                    //text: "Reproducido: %" + progressContainer.porcentaje
+                    text: {
+                        if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
+                            return "Reproduciendo: %" + progressContainer.porcentaje;
+                        } else if (mediaPlayer.playbackState === MediaPlayer.PausedState) {
+                            return "Pausado: %" + progressContainer.porcentaje;
+                        } else if (mediaPlayer.mediaStatus === MediaPlayer.LoadedMedia) {
+                            return "Preparado: %100";
+                        } else {
+                            return "?";
+                        }
+                    }
                     color: {
                         if (mediaPlayer.playbackState === MediaPlayer.PlayingState) {
                             return "white";
@@ -231,7 +243,7 @@ Window {
             // --- ListView Horizontal Inferior ---
             ListView {
                 id: markersList
-                width: parent.width-volumeTrack.width
+                width: parent.width
                 height: app.height*0.3
                 orientation: ListView.Horizontal
                 snapMode: ListView.SnapOneItem
