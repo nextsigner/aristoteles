@@ -23,8 +23,8 @@ Window {
         id: xApp
         width: parent.width-app.fs
         height: parent.height-app.fs*6
-        //anchors.centerIn: parent
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.centerIn: parent
+        //anchors.horizontalCenter: parent.horizontalCenter
         //anchors.verticalCenter: parent.verticalCenter
         MouseArea {
             id: touchArea
@@ -74,9 +74,9 @@ Window {
             spacing: app.fs*2
             //anchors.centerIn: parent
             anchors.verticalCenter: parent.verticalCenter
-            anchors.verticalCenterOffset: 0-progressContainer.height-markersList.height
+            anchors.verticalCenterOffset: 0-progressContainer.height//-markersList.height
             Text {
-                text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.position)
+                text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)
                 width: progressContainer.width
                 color: 'white'
                 font.pixelSize: app.fs*2
@@ -158,8 +158,8 @@ Window {
                 id: progressContainer
                 width: xApp.width-volumeTrack.width
                 height: app.fs*4
-                border.width: 1
-                border.color: 'white'
+                border.width: 4
+                border.color: 'blue'
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 color: {
@@ -274,7 +274,7 @@ Window {
 
                         Text {
                             //text: "Posición: " + (posicion / 1000) + " seg (" + posicion + " ms)"
-                            text: "Posición: " + getMsToString((posicion)) + " de " + getMsToString(mediaPlayer.position)
+                            text: "Posición: " + getMsToString((posicion)) + " de " + getMsToString(mediaPlayer.duration)
                             color: "#AAAAAA"
                             font.pixelSize: 18
                             anchors.horizontalCenter: parent.horizontalCenter
