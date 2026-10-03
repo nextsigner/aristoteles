@@ -350,11 +350,11 @@ Window {
 
 
 
-        item.marc={}
-        item.marc.titulo="Introducción"
-        item.marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
-        item.marc.ms=0
-        marcs.push(item.marc)
+        let marc={}
+        marc.titulo="Introducción"
+        marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
+        marc.ms=0
+        marcs.push(marc)
 
         log.text="DATO:\n"+JSON.stringify(j, null, 2)
         return
