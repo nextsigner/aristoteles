@@ -13,7 +13,7 @@ Window {
     title: "Aristoteles"
     color: 'black'
     property bool appRotated: Screen.width>Screen.height
-    property int fs: width*0.035
+    property int fs: !appRotated?width*0.035:height*0.035
     property var json
 
 
