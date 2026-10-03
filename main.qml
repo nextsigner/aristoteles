@@ -13,7 +13,7 @@ Window {
     title: "Aristoteles"
     color: 'black'
     property int fs: width*0.035
-    property var j: {}
+    property var json
 
 
     Settings {
@@ -341,7 +341,7 @@ Window {
         }
     }
     Component.onCompleted: {
-        j={}
+        let j={}
         j.items=[]
         let item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
@@ -380,7 +380,9 @@ Window {
 
         j.item.push(item)
 
-        log.text=JSON.stringify(j, null, 2)
+        app.json=j
+
+        log.text=JSON.stringify(app.json, null, 2)
 
         loadData(0)
 
@@ -396,7 +398,7 @@ Window {
         onActivated: Qt.quit()
     }
     function loadData(index){
-        let item=j.items[index]
+        let item=app.json.items[index]
         labelTit.text=item.tit
         mediaPlayer.source=item.url
         for(var i=0;i<item.marcs.length;i++){
