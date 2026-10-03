@@ -26,8 +26,6 @@ Window {
         width: parent.width-app.fs
         height: parent.height-app.fs*6
         anchors.centerIn: parent
-        //anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.verticalCenter: parent.verticalCenter
         MouseArea {
             id: touchArea
             //anchors.fill: parent
@@ -159,6 +157,76 @@ Window {
             spacing: app.fs
             anchors.bottom: parent.bottom
             anchors.bottomMargin: app.fs*3
+            ListView {
+                id: lvAudios
+                width: parent.width
+                height: app.height*0.2
+                orientation: ListView.Horizontal
+                snapMode: ListView.SnapOneItem
+                highlightRangeMode: ListView.StrictlyEnforceRange
+                z: 5
+
+                model: lm
+                delegate: Rectangle {
+                    width: lvAudios.width
+                    height: lvAudios.height
+                    color: "#222222"
+                    border.color: "white"
+                    border.width: 1
+                    MouseArea{
+                        anchors.fill: parent
+                        //onDoubleClicked: mediaPlayer.position = posicion
+                    }
+                    Column {
+                        anchors.centerIn: parent
+                        spacing: app.fs*0.5
+
+                        Text {
+                            text: titulo
+                            width: parent.parent.width-app.fs
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            color: "white"
+                            font.pixelSize: app.fs*1.5
+                            font.bold: true
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                        Text {
+                            text: descripcion
+                            width: parent.parent.width-app.fs
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
+                            color: "white"
+                            font.pixelSize: app.fs
+                            font.bold: true
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+
+                        Text {
+                            text: "URL: " + url
+                            color: "#AAAAAA"
+                            font.pixelSize: 18
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                    }
+                }
+
+                // Al deslizar y cambiar el elemento seleccionado, actualiza la posición del audio
+                onCurrentIndexChanged: {
+                    loadData(currentIndex)
+                }
+                ListModel{
+                    id: lmAudios
+                    function addItem(t, d, u){
+                        return{
+                            titulo: t,
+                            descripcion: d,
+                            url: u
+                        }
+
+                    }
+                }
+            }
             Rectangle {
                 id: progressContainer
                 width: xApp.width-volumeTrack.width
@@ -353,7 +421,6 @@ Window {
         let item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
         item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
-        //item.marcs=[]
         let marcs=[]
 
         let marc={}
@@ -361,21 +428,18 @@ Window {
         marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
         marc.ms=0
         marcs.push(marc)
-        //item.marcs.push(marcs)
 
         marc={}
         marc.titulo="Teoría Hilemórficas"
         marc.des="Forma y materia, sustancia primera y sustancia segunda."
         marc.ms=701000
         marcs.push(marc)
-        //item.marcs.push(marcs)
 
         marc={}
         marc.titulo="Teleología y Cambio"
         marc.des="Potencia y acto."
         marc.ms=1471000
         marcs.push(marc)
-        //item.marcs.push(marcs)
 
         marc={}
         marc.titulo="Teoría de las 4 causas"
@@ -386,18 +450,24 @@ Window {
         item.marcs=marcs
         j.items.push(item)
 
+        //Item 2
+        item={}
+        item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/2.wav"
+        item.tit="Enrique Pedro Mesa\nARISTÖTELES 2/5"
+        marcs=[]
+
+        marc={}
+        marc.titulo="Introducción 2"
+        marc.des="Metafísica"
+        marc.ms=0
+        marcs.push(marc)
+
+        item.marcs=marcs
+        j.items.push(item)
+
         app.json=j
 
-        //log.text=JSON.stringify(app.json, null, 2)
-        //return
-
         loadData(0)
-
-        /*labelTit.text="Enrique Pedro Mesa\nARISTÖTELES 1/5"
-        lm.append(lm.addItem("Introducción", "Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether.",0))
-        lm.append(lm.addItem("Teoría Hilemórfica", "Forma y materia, sustancia primera y sustancia segunda.", 701000))
-        lm.append(lm.addItem("Teleología y Cambio", "Potencia y acto.", 1471000))
-        lm.append(lm.addItem("Teoría de las 4 causas", "Formal, Material, Eficiente y Final", 2081600))*/
     }
 
     Shortcut {
@@ -408,12 +478,12 @@ Window {
         let item=app.json.items[index]
         labelTit.text=item.tit
         mediaPlayer.source=item.url
-        xLog.visible=true
+        //xLog.visible=true
         //log.text=JSON.stringify(item, null, 2)
         //return
         for(var i=0;i<item.marcs.length;i++){
             let marc=item.marcs[i]
-            log.text=JSON.stringify(marc, null, 2)
+            //log.text=JSON.stringify(marc, null, 2)
             lm.append(lm.addItem(marc.titulo, marc.des,marc.ms))
         }
     }
