@@ -385,6 +385,7 @@ Window {
     function loadData(index){
         let item=j.items[index]
         labelTit.text=item.tit
+        mediaPlayer.source=item.url
         for(var i=0;i<item.marcs.length;i++){
             let marc=item.marcs[i]
             lm.append(lm.addItem(marc.titulo, marc.des,marc.ms))
