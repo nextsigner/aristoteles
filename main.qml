@@ -416,8 +416,8 @@ Window {
         let marcs=[]
 
         let marc={}
-        marc.titulo="Introducción"
-        marc.des="Física y Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
+        marc.titulo="Introducción a la física"
+        marc.des="Separamos la Física y la Metafísica Aristotélica. Mundo sublunar y supralunar, elementos y ether."
         marc.ms=0
         marcs.push(marc)
 
@@ -450,9 +450,15 @@ Window {
         marcs=[]
 
         marc={}
-        marc.titulo="Introducción 2"
-        marc.des="Metafísica"
+        marc.titulo="Introducción a la Metafísica"
+        marc.des="¿Qué es la Metafísica? Estudia la realidad en cuanto tal."
         marc.ms=0
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="El ENTE"
+        marc.des="¿Qué es un Ente?"
+        marc.ms=getHmsToMs(0, 7, 8)
         marcs.push(marc)
 
         item.marcs=marcs
@@ -507,5 +513,12 @@ Window {
         var sStr = seconds.toString().padStart(2, '0');
 
         return hStr + ":" + mStr + ":" + sStr;
+    }
+    function getHmsToMs(hours, minutes, seconds) {
+        var h = hours || 0;
+        var m = minutes || 0;
+        var s = seconds || 0;
+
+        return ((h * 3600) + (m * 60) + s) * 1000;
     }
 }
