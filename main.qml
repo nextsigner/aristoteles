@@ -12,6 +12,7 @@ Window {
     //visibility: 'FullScreen'
     title: "Aristoteles"
     color: 'black'
+    property bool appRotated: Screen.width>Screen.height
     property int fs: width*0.035
     property var json
 
@@ -178,7 +179,7 @@ Window {
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            font.pixelSize: app.fs*1.5
+                            font.pixelSize: app.fs*2.5
                             font.bold: true
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
@@ -188,7 +189,7 @@ Window {
                             wrapMode: Text.WordWrap
                             horizontalAlignment: Text.AlignHCenter
                             color: "white"
-                            font.pixelSize: app.fs
+                            font.pixelSize: app.fs*1.5
                             font.bold: true
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
@@ -198,6 +199,7 @@ Window {
                             color: "#AAAAAA"
                             font.pixelSize: 18
                             anchors.horizontalCenter: parent.horizontalCenter
+                            visible: false
                         }
                     }
                 }
@@ -439,6 +441,12 @@ Window {
         marc.ms=2081600
         marcs.push(marc)
 
+        marc={}
+        marc.titulo="RESUMEN FINAL"
+        marc.des="Se explica de manera resumida lo explicado."
+        marc.ms=getHmsToMs(0, 41, 5)
+        marcs.push(marc)
+
         item.marcs=marcs
         j.items.push(item)
 
@@ -481,8 +489,20 @@ Window {
 
         marc={}
         marc.titulo="EL PRIMER MOTOR INMOVIL"
-        marc.des="La idea de bien. Teleologica de atraidos por la perfección, ACTO PURO SIN POTENCIA que solo se piensa a si mismo."
+        marc.des="El fundamento del primer movimiento. La idea del infinito."
         marc.ms=getHmsToMs(0, 19, 29)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="LA PERFECCIÓN DEL PRIMER MOTOR"
+        marc.des="La idea de bien. Teleologica de atraidos por la perfección, ACTO PURO SIN POTENCIA que solo se piensa a si mismo."
+        marc.ms=getHmsToMs(0, 32, 14)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="RESUMEN FINAL"
+        marc.des="Se explica de manera resumida lo explicado."
+        marc.ms=getHmsToMs(0, 37, 14)
         marcs.push(marc)
 
         item.marcs=marcs
