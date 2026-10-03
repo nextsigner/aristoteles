@@ -333,6 +333,10 @@ Window {
             color: 'black'
             anchors.fill: parent
             visible: false
+            MouseArea{
+                anchors.fill: parent
+                onClicked: xLog.visible=false
+            }
             Text{
                 id: log
                 width: parent.width-app.fs
@@ -412,8 +416,8 @@ Window {
         labelTit.text=item.tit
         mediaPlayer.source=item.url
         xLog.visible=true
-        log.text=JSON.stringify(item, null, 2)
-        return
+        //log.text=JSON.stringify(item, null, 2)
+        //return
         for(var i=0;i<item.marcs.length;i++){
             let marc=item.marcs[i]
             log.text=JSON.stringify(marc, null, 2)
