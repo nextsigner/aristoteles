@@ -522,15 +522,53 @@ Window {
         //Item 3
         item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/3.wav"
-        item.tit="Enrique Pedro Mesa\nARISTÖTELES 3/5"
-        item.des="Escuchando..."
+        item.tit="Enrique Pedro Mesa\nARISTOTELES 3/5"
+        item.des="Epistemología. Conocimiento Aristotélico."
         marcs=[]
 
         marc={}
-        marc.titulo="Introducción 3"
-        marc.des="???"
+        marc.titulo="Introducción"
+        marc.des="Nos ponemos en contexto. ¿Cómo se conoce? Reminescencia Platónica."
         marc.ms=getHmsToMs(0, 0, 0)
         marcs.push(marc)
+
+        marc={}
+        marc.titulo="La inducción"
+        marc.des="Comienza con los sentidos. El proceso del conocimiento que va desde los particular a lo general. Ejemplo de la madre, el niño y el perro."
+        marc.ms=getHmsToMs(0, 1, 45)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="Introducción: IMAGINACIÓN Y ENTENDIMIENTO"
+        marc.des="Introducción a la imaginación y el entendimiento (agente universal que abstrae y paciente individual que posibilita juicio)."
+        marc.ms=getHmsToMs(0, 7, 50)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="Explicación: IMAGINACIÓN Y ENTENDIMIENTO"
+        marc.des="Se explica la imaginación y el entendimiento. Abstracción y se descubre la esencia."
+        marc.ms=getHmsToMs(0, 9, 42)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="ENTENDIMIENTOS AGENTE Y PACIENTE"
+        marc.des="¿Porqué el entendimiento agente es universal y el entendimiento paciente es individual?"
+        marc.ms=getHmsToMs(0, 13, 59)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="LA LÓGICA"
+        marc.des="¿Qué sería la lógica? Aristóteles ha creado la lógica. Es un MÉTODO para agumentación rigurosa y coherente. Se ocupa de la validez no del contenido. SILOGISMO y FALACIA."
+        marc.ms=getHmsToMs(0, 15, 59)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="RESUMEN FINAL"
+        marc.des="Se explica de manera resumida lo explicado."
+        marc.ms=getHmsToMs(0, 23, 45)
+        marcs.push(marc)
+
+
 
         item.marcs=marcs
         j.items.push(item)
