@@ -141,7 +141,7 @@ Window {
             anchors.verticalCenter: parent.verticalCenter
             ListView {
                 id: lvAudios
-                width: xApp.width
+                width: xApp.width-volumeTrack.width
                 height: xApp.height*0.2
                 orientation: ListView.Horizontal
                 snapMode: ListView.SnapOneItem
@@ -313,7 +313,7 @@ Window {
             // --- ListView Horizontal Inferior ---
             ListView {
                 id: markersList
-                width: xApp.width
+                width: xApp.width-volumeTrack.width
                 height: xApp.height*0.3
                 orientation: ListView.Horizontal
                 snapMode: ListView.SnapOneItem

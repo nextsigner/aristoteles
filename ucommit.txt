@@ -1,1 +1,1 @@
-Se termina los marcadores de 3.wav
+Se ajusta ancho de los ListView
