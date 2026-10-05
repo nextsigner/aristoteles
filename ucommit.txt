@@ -1,1 +1,1 @@
-Se ajusta ancho de los ListView
+Se editan marcs de audio 4

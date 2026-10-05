@@ -566,9 +566,58 @@ Window {
         marc.titulo="RESUMEN FINAL"
         marc.des="Se explica de manera resumida lo explicado."
         marc.ms=getHmsToMs(0, 23, 45)
+
+        item.marcs=marcs
+        j.items.push(item)
+
+        //Item 4
+        item={}
+        item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/4.wav"
+        item.tit="Enrique Pedro Mesa\nARISTOTELES 4/5"
+        item.des="Antropología Aristotélica."
+        marcs=[]
+
+        marc={}
+        marc.titulo="Introducción"
+        marc.des="¿Qué es, cómo es un ser humano?. Se repasa el HILEMORFISMO. Cuerpo y alma son UNO (unión sustanciál conforman la sustancia primera)."
+        marc.ms=getHmsToMs(0, 0, 0)
         marcs.push(marc)
 
+        marc={}
+        marc.titulo="Sobre el ALMA"
+        marc.des="El alma es mortal. Metáfora: El alma como energía de una batería. El entendimiento AGENTE es INMORTAL"
+        marc.ms=getHmsToMs(0, 4, 4)
+        marcs.push(marc)
 
+        marc={}
+        marc.titulo="Las 3 FACULTADES DEL ALMA"
+        marc.des="Vegetativa, Sensitiva y Intelectiva."
+        marc.ms=getHmsToMs(0, 6, 4)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="La FACULTAD VEGETATIVA"
+        marc.des="ATENCIÓN! Aquí se equivoca al decir SENSITIVA al comienzo. La capacidad de alimentarse y estar vivos."
+        marc.ms=getHmsToMs(0, 8, 14)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="La FACULTAD SENSITIVA"
+        marc.des="La capacidad de sentir de los animales y humanos que no tienen los vegetales. La capacidad de recibir estímolos nerviosos y desarrollarlos."
+        marc.ms=getHmsToMs(0, 9, 22)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="La FACULTAD INTELECTIVA"
+        marc.des="La capacidad del pensamiento racional. Intelección, capacidad superior, esencial y distintiva. Solo exclusiva de los seres humanos."
+        marc.ms=getHmsToMs(0, 12, 12)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="RESUMEN FINAL"
+        marc.des="Se explica de manera resumida lo explicado."
+        marc.ms=getHmsToMs(0, 15, 13)
+        marcs.push(marc)
 
         item.marcs=marcs
         j.items.push(item)
