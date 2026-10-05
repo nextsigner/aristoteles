@@ -424,7 +424,7 @@ Window {
         j.items=[]
         let item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/1.wav"
-        item.tit="Enrique Pedro Mesa\nARISTÖTELES 1/5"
+        item.tit="Enrique Pedro Mesa\nARISTÓTELES 1/6"
         item.des="Se introduce a los conceptos de física y metafísica y comienza a explicar la física aristotélica."
         let marcs=[]
 
@@ -464,7 +464,7 @@ Window {
         //Item 2
         item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/2.wav"
-        item.tit="Enrique Pedro Mesa\nARISTÖTELES 2/5"
+        item.tit="Enrique Pedro Mesa\nARISTÓTELES 2/6"
         item.des="Comienza a explicar metafísica aristotélica, axiomas, categorías (principios universales que rigen la realidad física)"
         marcs=[]
 
@@ -522,7 +522,7 @@ Window {
         //Item 3
         item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/3.wav"
-        item.tit="Enrique Pedro Mesa\nARISTOTELES 3/5"
+        item.tit="Enrique Pedro Mesa\nARISTOTELES 3/6"
         item.des="Epistemología. Conocimiento Aristotélico."
         marcs=[]
 
@@ -573,7 +573,7 @@ Window {
         //Item 4
         item={}
         item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/4.wav"
-        item.tit="Enrique Pedro Mesa\nARISTOTELES 4/5"
+        item.tit="Enrique Pedro Mesa\nARISTOTELES 4/6"
         item.des="Antropología Aristotélica."
         marcs=[]
 
@@ -617,6 +617,38 @@ Window {
         marc.titulo="RESUMEN FINAL"
         marc.des="Se explica de manera resumida lo explicado."
         marc.ms=getHmsToMs(0, 15, 13)
+        marcs.push(marc)
+
+        item.marcs=marcs
+        j.items.push(item)
+
+        //Item 5
+        item={}
+        item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/5.wav"
+        item.tit="Enrique Pedro Mesa\nARISTOTELES 5/6"
+        item.des="Ética Aristotélica."
+        marcs=[]
+
+        marc={}
+        marc.titulo="Introducción"
+        marc.des="Introducción..."
+        marc.ms=getHmsToMs(0, 0, 0)
+        marcs.push(marc)
+
+        item.marcs=marcs
+        j.items.push(item)
+
+        //Item 6
+        item={}
+        item.url="https://github.com/nextsigner/aristoteles/releases/download/filosof%C3%ADa/6.wav"
+        item.tit="Enrique Pedro Mesa\nARISTOTELES 6/6"
+        item.des="Política Aristotélica."
+        marcs=[]
+
+        marc={}
+        marc.titulo="Introducción"
+        marc.des="Introduccion..."
+        marc.ms=getHmsToMs(0, 0, 0)
         marcs.push(marc)
 
         item.marcs=marcs
