@@ -631,8 +631,56 @@ Window {
 
         marc={}
         marc.titulo="Introducción"
-        marc.des="Introducción..."
+        marc.des="Ética Teleológica o basada en ella. El DEMONISMO. Desarrollar la esencia para ALCANZAR LA FELICIDAD propia del ser humano."
         marc.ms=getHmsToMs(0, 0, 0)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="La FELICIDAD de la VIDA CONTEMPLATIVA"
+        marc.des="¿Cuál es esta felicidad?. PENSAR. Facultad intelectiva. La vida contemplativa propia de los seres humanos."
+        marc.ms=getHmsToMs(0, 2, 35)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="PENSAR ¿EN QUÉ?"
+        marc.des="Lo que nos hace más felices es pensar sobre lo más abstracto, sobre el conocimiento de los seres y el primer motor inmóvil. FILOSOFAR."
+        marc.ms=getHmsToMs(0, 7, 22)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="VIRTUDES DIANOÉTICAS"
+        marc.des="Exclusiva de la divinidad. Son las que tienen que ver con el entendimiento, las facultades intelectuales, la sabiduría, reflexxión, comprensión, la argumentación..."
+        marc.ms=getHmsToMs(0, 10, 5)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="VIDA CONTEMPLATIVA LIMITADA"
+        marc.des="Imposible de cumplir permanentemente porque tenemos necesidades corporales y sociales."
+        marc.ms=getHmsToMs(0, 11, 33)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="¿QUIÉN SERÁ SIEMPRE FELIZ?"
+        marc.des="La absoluta felicidad la tendrá aquél que no tenga ningúna necesidad corporal ni social, ninguna facultad vegetativa ni sensitiva. El primer motor inmovil."
+        marc.ms=getHmsToMs(0, 13, 13)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="VIRTUDES ÉTICAS/PRÁCTICAS"
+        marc.des="Las que realizamos en la vida cotidiana en relación con los demás, virtudes con características humanas. Permiten organizar la vida para ganar tiempo para la intelección."
+        marc.ms=getHmsToMs(0, 14, 28)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="PRUDENCIA: VIRTUD ÉTICA TÉRMINO MEDIO"
+        marc.des="Un hábito que va a consistir que a travez de la prudencia elija entre 2 extremos el término medio, extremo por defecto y otro por exceso."
+        marc.ms=getHmsToMs(0, 24, 47)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="RESUMEN FINAL"
+        marc.des="Se explica de manera resumida lo explicado."
+        marc.ms=getHmsToMs(0, 39, 4)
         marcs.push(marc)
 
         item.marcs=marcs
