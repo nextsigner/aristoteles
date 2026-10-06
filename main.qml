@@ -528,7 +528,7 @@ Window {
 
         marc={}
         marc.titulo="Introducción"
-        marc.des="Nos ponemos en contexto. ¿Cómo se conoce? Reminescencia Platónica."
+        marc.des="Nos ponemos en contexto. ¿Cómo se conoce? Reminiscencia Platónica."
         marc.ms=getHmsToMs(0, 0, 0)
         marcs.push(marc)
 
@@ -695,8 +695,56 @@ Window {
 
         marc={}
         marc.titulo="Introducción"
-        marc.des="Introduccion..."
+        marc.des="ZOON POLITIKÓN. Ser humano cono SER SOCIAL POR NATURALEZA."
         marc.ms=getHmsToMs(0, 0, 0)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="EL LOGOS"
+        marc.des="El ser humano desea el LOGOS. La RACIANALIDAD, PENSAMIENTO RACIONAL, COMUNICACCIÓN Y LENGUAJE."
+        marc.ms=getHmsToMs(0, 2, 11)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="POLÍTICA REGIDA POR LA TELEOLOGÍA"
+        marc.des="Finalidad o meta, LA POLIS, el fin último de todo proceso social. Conformada por familia, tribu y aldeas."
+        marc.ms=getHmsToMs(0, 5, 27)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="LA FELICIDAD COMO FIN"
+        marc.des="Permitiendo que en dicha sociedad se desarrolle la VIRTUD ÉTICA O PRÁCITCA, tendría más tiempo para contemplar la vida y ser feliz."
+        marc.ms=getHmsToMs(0, 7, 53)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="EL LEGISLADOR - TEORÍA Y PRÁCTICA"
+        marc.des="El legislador no tiene que se solo un terórico, debe tener conocimientos prácticos regidos por LA PRUDENCIA, INTELIGENCIA PRÁCTICA."
+        marc.ms=getHmsToMs(0, 9, 23)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="UN BUEN GOBIERNO"
+        marc.des="El que junta la teoría y la práctica y busca el BIEN COMÚN y posibilitar que cada individuo pueda desarrollar su VIRTUD INDIVIDUAL."
+        marc.ms=getHmsToMs(0, 11, 43)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="Resume CLAVE"
+        marc.des="Se resume los dicho anteriormente."
+        marc.ms=getHmsToMs(0, 13, 10)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="3 TIPOS DE GOBIERNOS"
+        marc.des="Pueden ser perfectamente justos pero pueden generar CORRUPCIÓN. Las justas: MONARQUÍA (DE UNO), ARISTROCRACIA Y DEMOCRACIA. Formas corruptas: TIRANÍA, OLIGARQUÍA Y DEMAGOGIA."
+        marc.ms=getHmsToMs(0, 13, 49)
+        marcs.push(marc)
+
+        marc={}
+        marc.titulo="RESUMEN FINAL"
+        marc.des="Se explica de manera resumida lo explicado."
+        marc.ms=getHmsToMs(0, 21, 32)
         marcs.push(marc)
 
         item.marcs=marcs
