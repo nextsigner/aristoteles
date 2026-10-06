@@ -702,7 +702,7 @@ Window {
         marc={}
         marc.titulo="EL LOGOS"
         marc.des="El ser humano desea el LOGOS. La RACIANALIDAD, PENSAMIENTO RACIONAL, COMUNICACCIÓN Y LENGUAJE."
-        marc.ms=getHmsToMs(0, 2, 11)
+        marc.ms=getHmsToMs(0, 2, 12)
         marcs.push(marc)
 
         marc={}
@@ -714,7 +714,7 @@ Window {
         marc={}
         marc.titulo="LA FELICIDAD COMO FIN"
         marc.des="Permitiendo que en dicha sociedad se desarrolle la VIRTUD ÉTICA O PRÁCITCA, tendría más tiempo para contemplar la vida y ser feliz."
-        marc.ms=getHmsToMs(0, 7, 53)
+        marc.ms=getHmsToMs(0, 7, 54)
         marcs.push(marc)
 
         marc={}
