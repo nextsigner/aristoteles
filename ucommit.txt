@@ -1,1 +1,1 @@
-Se agregan marcadores de audio 5
+i7: Se ajusta appIsRotated para linux

@@ -12,7 +12,7 @@ Window {
     //visibility: 'FullScreen'
     title: "Aristoteles"
     color: 'black'
-    property bool appRotated: Screen.width>Screen.height
+    property bool appRotated: Qt.platform.os==='android'?Screen.width>Screen.height:Screen.width<Screen.height
     property int fs: !appRotated?width*0.035:height*0.035
     property var json
 
