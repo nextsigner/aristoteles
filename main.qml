@@ -836,7 +836,8 @@ Window {
         //unikObj.downloadGitHubZip(item.url, "prueba.wav");
         unikObj.downloadGitHubZip(item.url, m0[m0.length-1]);
         if(unikObj.fileExist(unikObj.getPath(2)+'/'+m0[m0.length-1])){
-            mediaPlayer.source='file://'+unikObj.getPath(2)+'/'+m0[m0.length-1]
+            //mediaPlayer.source='file://'+unikObj.getPath(2)+'/'+m0[m0.length-1]
+            mediaPlayer.source=unikObj.getPath(2)+'/'+m0[m0.length-1]
             txtCentral.text+='\nCACHEADO'
         }else{
             mediaPlayer.source=item.url
