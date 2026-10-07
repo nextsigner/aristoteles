@@ -15,6 +15,7 @@ Window {
     property bool appRotated: Qt.platform.os==='android'?Screen.width>Screen.height:Screen.width<Screen.height
     property int fs: !appRotated?width*0.035:height*0.035
     property var json
+    property string tempFolder: ''
 
 
     Settings {
@@ -44,6 +45,7 @@ Window {
                 let msg=""
                 if (success) {
                     console.log("¡Archivo descargado en la ruta temporal!: " + filePath);
+                    txtCentral.text+='\n'+filePath
                 } else {
                     msg="Error al descargar el archivo ZIP."
                     console.log(msg);
@@ -248,6 +250,7 @@ Window {
                 height: volumeTrack.height-lvAudios.height-markersList.height-progressContainer.height-progressBar.height-parent.spacing*3
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
+                    id: txtCentral
                     text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)
                     width: progressContainer.width
                     color: 'white'
@@ -826,7 +829,7 @@ Window {
         lm.clear()
         let item=app.json.items[index]
         //labelTit.text=item.tit
-        unikObj.downloadGitHubZip(item.url, unikObj.getPath(4)+"/prueba.wav");
+        unikObj.downloadGitHubZip(item.url, "prueba.wav");
         mediaPlayer.source=item.url
         //xLog.visible=true
         //log.text=JSON.stringify(item, null, 2)
