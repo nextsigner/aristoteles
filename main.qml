@@ -826,7 +826,7 @@ Window {
         lm.clear()
         let item=app.json.items[index]
         //labelTit.text=item.tit
-        unikObj.downloadGitHubZip(item.url, "/sdcard/Download/prueba.wav");
+        unikObj.downloadGitHubZip(item.url, unikObj.getPath(4)+"/prueba.wav");
         mediaPlayer.source=item.url
         //xLog.visible=true
         //log.text=JSON.stringify(item, null, 2)
