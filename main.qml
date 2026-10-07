@@ -32,12 +32,12 @@ Window {
                     let percent = (bytesReceived / bytesTotal) * 100;
                     msg="Progreso: " + percent.toFixed(2) + "% (" + bytesReceived + " / " + bytesTotal + " bytes)"
                     console.log(msg);
-                    statusText.text=msg
+                    //statusText.text=msg
                     progressBar.value = bytesReceived / bytesTotal;
                 } else {
                     msg="Descargando... Bytes recibidos: " + bytesReceived
                     console.log(msg);
-                    statusText.text=msg
+                    //statusText.text=msg
                 }
             }
             onDownloadFinished: function(success, filePath) {
