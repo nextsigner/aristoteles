@@ -826,6 +826,7 @@ Window {
         lm.clear()
         let item=app.json.items[index]
         //labelTit.text=item.tit
+        unikObj.downloadGitHubZip(url, "/storage/emulated/0/Download/prueba.mp3");
         mediaPlayer.source=item.url
         //xLog.visible=true
         //log.text=JSON.stringify(item, null, 2)
