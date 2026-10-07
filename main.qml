@@ -45,7 +45,10 @@ Window {
                 let msg=""
                 if (success) {
                     console.log("¡Archivo descargado en la ruta temporal!: " + filePath);
-                    txtCentral.text+='\n'+filePath
+                    //txtCentral.text+='\n'+filePath
+                    log.text=filePath
+                    log.text+='\nTemp: '+unikObj.getPath(2)
+                    xLog.visible=true
                 } else {
                     msg="Error al descargar el archivo ZIP."
                     console.log(msg);
