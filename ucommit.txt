@@ -1,1 +1,1 @@
-Se editan marcs de audio 6 2
+Se agrega la barra de progreso

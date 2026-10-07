@@ -21,6 +21,38 @@ Window {
         id: apps
         property int volumeValue: 100
     }
+    Item {
+        Unik {
+            id: unikObj
+            property string cProject: ''
+
+            onDownloadProgress: function(bytesReceived, bytesTotal) {
+                let msg=""
+                if (bytesTotal > 0) {
+                    let percent = (bytesReceived / bytesTotal) * 100;
+                    msg="Progreso: " + percent.toFixed(2) + "% (" + bytesReceived + " / " + bytesTotal + " bytes)"
+                    console.log(msg);
+                    statusText.text=msg
+                    progressBar.value = bytesReceived / bytesTotal;
+                } else {
+                    msg="Descargando... Bytes recibidos: " + bytesReceived
+                    console.log(msg);
+                    statusText.text=msg
+                }
+            }
+            onDownloadFinished: function(success, filePath) {
+                let msg=""
+                if (success) {
+                    console.log("¡Archivo descargado en la ruta temporal!: " + filePath);
+                } else {
+                    msg="Error al descargar el archivo ZIP."
+                    console.log(msg);
+                }
+            }
+        }
+
+
+    }
 
     Item {
         id: xApp
@@ -136,8 +168,6 @@ Window {
 
         Column{
             spacing: app.fs
-            //anchors.bottom: parent.bottom
-            //anchors.bottomMargin: app.fs*3
             anchors.verticalCenter: parent.verticalCenter
             ListView {
                 id: lvAudios
@@ -215,7 +245,7 @@ Window {
             }
             Item{
                 width: xApp.width
-                height: volumeTrack.height-lvAudios.height-markersList.height-progressContainer.height-parent.spacing*3
+                height: volumeTrack.height-lvAudios.height-markersList.height-progressContainer.height-progressBar.height-parent.spacing*3
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
                     text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)
@@ -309,7 +339,33 @@ Window {
                     }
                 }
             }
-
+            ProgressBar {
+                id: progressBar
+                width: xApp.width
+                anchors.horizontalCenter: parent.horizontalCenter
+                from: 0
+                to: 1
+                value: 0
+                Rectangle{
+                    color: 'transparent'
+                    border.width: 2
+                    border.color: apps.fontColor
+                    anchors.fill: parent
+                    Text{
+                        text:  '%'+progressBar.value
+                        font.pixelSize: app.fs*0.5
+                        color: apps.fontColor
+                        anchors.centerIn: parent
+                        Rectangle{
+                            width: parent.contentWidth+4
+                            height: parent.contentHeight
+                            color: apps.backgroundColor
+                            anchors.centerIn: parent
+                            z: parent.z-1
+                        }
+                    }
+                }
+            }
             // --- ListView Horizontal Inferior ---
             ListView {
                 id: markersList
