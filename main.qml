@@ -832,8 +832,16 @@ Window {
         lm.clear()
         let item=app.json.items[index]
         //labelTit.text=item.tit
-        unikObj.downloadGitHubZip(item.url, "prueba.wav");
-        mediaPlayer.source=item.url
+        let m0=item.url.split('/')
+        //unikObj.downloadGitHubZip(item.url, "prueba.wav");
+        unikObj.downloadGitHubZip(item.url, m0[m0.length-1]);
+        if(unikObj.fileExist(unikObj.getPath(2)+'/'+m0[m0.length-1])){
+            mediaPlayer.source='file://'+unikObj.getPath(2)+'/'+m0[m0.length-1]
+            txtCentral.text+='\nCACHEADO'
+        }else{
+            mediaPlayer.source=item.url
+            txtCentral.text+='\nRED'
+        }
         //xLog.visible=true
         //log.text=JSON.stringify(item, null, 2)
         //return
