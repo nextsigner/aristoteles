@@ -354,8 +354,8 @@ Window {
                 visible: app.playingFromCache===2
                 Text{
                     text: 'Audio local'
-                    font.pixelSize: app.fs
-                    color: apps.fontColor
+                    font.pixelSize: 50//app.fs
+                    color: 'white'//apps.fontColor
                     anchors.centerIn: parent
                 }
             }
