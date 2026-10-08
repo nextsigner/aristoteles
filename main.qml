@@ -253,7 +253,7 @@ Window {
             }
             Item{
                 width: xApp.width
-                height: volumeTrack.height-lvAudios.height-markersList.height-progressContainer.height-progressBar.height-parent.spacing*3
+                height: volumeTrack.height-lvAudios.height-markersList.height-progressContainer.height-progressBar.height-parent.spacing*4
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
                     id: txtCentral
