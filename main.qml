@@ -16,6 +16,7 @@ Window {
     property int fs: !appRotated?width*0.035:height*0.035
     property var json
     property string tempFolder: ''
+    property bool playingFromCache: mediaPlayer.source.indexOf('file:')>=0
 
 
     Settings {
@@ -345,6 +346,17 @@ Window {
                     }
                 }
             }
+            Item{
+                width: xApp.width
+                height: progressBar.height
+                visible: app.playingFromCache
+                Text{
+                    text: 'Audio local'
+                    font.pixelSize: app.fs
+                    color: apps.fontColor
+                    anchors.centerIn: parent
+                }
+            }
             ProgressBar {
                 id: progressBar
                 width: xApp.width
@@ -353,6 +365,8 @@ Window {
                 from: 0
                 to: 1
                 value: 0
+                visible: !app.playingFromCache
+                //opacity: !app.playingFromCache
                 Rectangle{
                     color: 'transparent'
                     border.width: 2
