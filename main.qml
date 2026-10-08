@@ -346,9 +346,10 @@ Window {
                     }
                 }
             }
-            Item{
+            Rectangle{
                 width: xApp.width
                 height: progressBar.height
+                color: 'blue'
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: app.playingFromCache===2
                 Text{
