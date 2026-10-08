@@ -355,7 +355,7 @@ Window {
                 Text{
                     text: 'Audio local'
                     font.pixelSize: 50//app.fs
-                    color: 'white'//apps.fontColor
+                    color: apps.fontColor
                     anchors.centerIn: parent
                 }
             }
