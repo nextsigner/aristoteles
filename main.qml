@@ -46,9 +46,9 @@ Window {
                 if (success) {
                     console.log("¡Archivo descargado en la ruta temporal!: " + filePath);
                     //txtCentral.text+='\n'+filePath
-                    log.text=filePath
-                    log.text+='\nTemp: '+unikObj.getPath(2)
-                    xLog.visible=true
+                    //log.text=filePath
+                    //log.text+='\nTemp: '+unikObj.getPath(2)
+                    //xLog.visible=true
                 } else {
                     msg="Error al descargar el archivo ZIP."
                     console.log(msg);
@@ -348,6 +348,7 @@ Window {
             ProgressBar {
                 id: progressBar
                 width: xApp.width
+                height: app.fs*2
                 anchors.horizontalCenter: parent.horizontalCenter
                 from: 0
                 to: 1
@@ -836,12 +837,11 @@ Window {
         //unikObj.downloadGitHubZip(item.url, "prueba.wav");
         if(unikObj.fileExist(unikObj.getPath(2)+'/'+m0[m0.length-1])){
             mediaPlayer.source='file://'+unikObj.getPath(2)+'/'+m0[m0.length-1]
-            //mediaPlayer.source=unikObj.getPath(2)+'/'+m0[m0.length-1]
-            txtCentral.text+='\nCACHEADO'
+            //txtCentral.text+='\nCACHEADO'
         }else{
             unikObj.downloadGitHubZip(item.url, m0[m0.length-1]);
             mediaPlayer.source=item.url
-            txtCentral.text+='\nRED'
+            //txtCentral.text+='\nRED'
         }
         //xLog.visible=true
         //log.text=JSON.stringify(item, null, 2)
