@@ -369,8 +369,7 @@ Window {
                 from: 0
                 to: 1
                 value: 0
-                visible: !app.playingFromCache===1
-                //opacity: !app.playingFromCache
+                visible: app.playingFromCache===1
                 Rectangle{
                     color: 'transparent'
                     border.width: 2
