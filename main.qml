@@ -351,11 +351,11 @@ Window {
             Rectangle{
                 width: xApp.width
                 height: progressBar.height
-                color: 'blue'
+                color: apps.backgroundColor
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: app.playingFromCache===2
                 Text{
-                    text: 'Audio local'
+                    text: 'Archivo de audio local (Descargado)'
                     font.pixelSize: app.fs
                     color: apps.fontColor
                     anchors.centerIn: parent
