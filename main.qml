@@ -257,7 +257,7 @@ Window {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
                     id: txtCentral
-                    text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)+"\nP:"+app.playingFromCache
+                    text: "" + getMsToString(mediaPlayer.position) + '\n'+getMsToString(mediaPlayer.duration)//+"\nP:"+app.playingFromCache
                     width: progressContainer.width
                     color: 'white'
                     font.pixelSize: app.fs*4
