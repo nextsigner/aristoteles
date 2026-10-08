@@ -22,6 +22,8 @@ Window {
     Settings {
         id: apps
         property int volumeValue: 100
+        property color fontColor: 'white'
+        property color backgroundColor: 'black'
     }
     Item {
         Unik {
@@ -354,7 +356,7 @@ Window {
                 visible: app.playingFromCache===2
                 Text{
                     text: 'Audio local'
-                    font.pixelSize: 50//app.fs
+                    font.pixelSize: app.fs
                     color: apps.fontColor
                     anchors.centerIn: parent
                 }
