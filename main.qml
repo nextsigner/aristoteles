@@ -16,7 +16,7 @@ Window {
     property int fs: !appRotated?width*0.035:height*0.035
     property var json
     property string tempFolder: ''
-    property bool playingFromCache: mediaPlayer.source.indexOf('file:')>=0
+    property int playingFromCache: -1//mediaPlayer.source.indexOf('file:')>=0
 
 
     Settings {
@@ -349,7 +349,7 @@ Window {
             Item{
                 width: xApp.width
                 height: progressBar.height
-                visible: app.playingFromCache
+                visible: app.playingFromCache===2
                 Text{
                     text: 'Audio local'
                     font.pixelSize: app.fs
@@ -365,7 +365,7 @@ Window {
                 from: 0
                 to: 1
                 value: 0
-                visible: !app.playingFromCache
+                visible: !app.playingFromCache===1
                 //opacity: !app.playingFromCache
                 Rectangle{
                     color: 'transparent'
@@ -851,10 +851,12 @@ Window {
         //unikObj.downloadGitHubZip(item.url, "prueba.wav");
         if(unikObj.fileExist(unikObj.getPath(2)+'/'+m0[m0.length-1])){
             mediaPlayer.source='file://'+unikObj.getPath(2)+'/'+m0[m0.length-1]
+            app.playingFromCache=2
             //txtCentral.text+='\nCACHEADO'
         }else{
             unikObj.downloadGitHubZip(item.url, m0[m0.length-1]);
             mediaPlayer.source=item.url
+            app.playingFromCache=1
             //txtCentral.text+='\nRED'
         }
         //xLog.visible=true
