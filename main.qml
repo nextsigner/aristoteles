@@ -349,6 +349,7 @@ Window {
             Item{
                 width: xApp.width
                 height: progressBar.height
+                anchors.horizontalCenter: parent.horizontalCenter
                 visible: app.playingFromCache===2
                 Text{
                     text: 'Audio local'
