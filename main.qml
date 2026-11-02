@@ -21,6 +21,7 @@ Window {
 
     Settings {
         id: apps
+        property bool autoLoad: false
         property int volumeValue: 100
         property color fontColor: 'white'
         property color backgroundColor: 'black'
@@ -500,6 +501,7 @@ Window {
         }
     }
     Component.onCompleted: {
+        apps.autoLoad=false
         let j={}
         j.items=[]
         let item={}
